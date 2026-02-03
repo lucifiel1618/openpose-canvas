@@ -17,8 +17,10 @@ body {
 }
 
 .toolbox-button {
+    display: inline-flex;
     margin-bottom: 5px;
     padding: 5px;
+    align-items: center;
     flex: 0 0 calc(50% - 4px);
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -31,15 +33,31 @@ body {
     background-color: #f0f0f0;
 }
 
+.toolbox-button img {
+    height: 16px;
+}
+
+#addPersonBtn {
+    flex: 0 0 100%;
+}
+
+#addPersonBtn span {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none; /* avoids click issues */
+}
+
 
 #addLayerBtn {
     flex: 0 0 100%;
 }
 
-#addLayerBtn img {
-    width: 16px;
-    height: 16px;
-    flex-shrink: 0;
+#addLayerBtn span {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none; /* avoids click issues */
 }
 
 #addLayerBtn.drag-over {
@@ -391,6 +409,12 @@ body {
     color: #333;
     display: flex;
     gap: 5px;
+    flex: 1; /* Added: ensures container fills the row width */
+}
+
+/* Added: Forces the Create/Delete buttons to the right */
+.entity-meta .icon-btn:first-of-type {
+    margin-left: auto;
 }
 
 .entity-content-wrapper .icon-btn {
@@ -418,6 +442,12 @@ body {
     display: flex;
     gap: 4px;
     align-items: center;
+    flex: 1; /* Added: ensures container fills the row width */
+}
+
+/* Added: Forces the crosshair move button to the right */
+.pos-input-group .node-move {
+    margin-left: auto;
 }
 
 .pos-input-group input {

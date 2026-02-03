@@ -115,7 +115,7 @@ export class ToolboxManager {
 
         const importBtn = document.createElement('button');
         const importIcon = document.createElement('img');
-        importIcon.src = 'assets/icons/import.svg';
+        importIcon.src = 'assets/icons/image.svg';
         importIcon.className = 'layer-icon';
         importIcon.alt = '';
         importIcon.setAttribute('aria-hidden', 'true');

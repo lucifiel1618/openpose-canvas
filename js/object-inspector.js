@@ -570,6 +570,30 @@ export class ObjectInspector {
         section.querySelector('.entity-class').textContent = this.getEntityClassName(firstEntity);
 
         // 2. Fill Values
+        // 2.5. Set button states
+        const nodeCreateBtn = section.querySelector('.node-create');
+        const nodeDeleteBtn = section.querySelector('.node-delete');
+        
+        if (nodeCreateBtn) {
+            const isNodeCreateValid = this.isNodeCreateValid(firstEntity);
+            nodeCreateBtn.disabled = !isNodeCreateValid;
+            if (!isNodeCreateValid) {
+                nodeCreateBtn.classList.add('disabled');
+            } else {
+                nodeCreateBtn.classList.remove('disabled');
+            }
+        }
+        
+        if (nodeDeleteBtn) {
+            const isNodeDeleteValid = this.isNodeDeleteValid(firstEntity);
+            nodeDeleteBtn.disabled = !isNodeDeleteValid;
+            if (!isNodeDeleteValid) {
+                nodeDeleteBtn.classList.add('disabled');
+            } else {
+                nodeDeleteBtn.classList.remove('disabled');
+            }
+        }
+
         const xInput = section.querySelector('.x-input');
         const yInput = section.querySelector('.y-input');
         const pos = firstEntity.getPosition();
@@ -584,9 +608,15 @@ export class ObjectInspector {
         });
 
         // 4. Action Handlers
-        section.querySelector('.node-create').onclick = async (e) => await this.handleNodeRecreate(firstEntity);
-        section.querySelector('.node-delete').onclick = async (e) => await this.handleNodeDelete(firstEntity);
-        section.querySelector('.node-move').onclick = async (e) => await this.handleNodeMove(firstEntity);
+        section.querySelector('.node-create')?.addEventListener(
+            'click', async (e) => await this.handleNodeRecreate(firstEntity)
+        );
+        section.querySelector('.node-delete')?.addEventListener(
+            'click', async (e) => await this.handleNodeDelete(firstEntity)
+        );
+        section.querySelector('.node-move')?.addEventListener(
+            'click', async (e) => await this.handleNodeMove(firstEntity)
+        );
 
         // 5. Input Sync
         const update = () => {
@@ -610,6 +640,7 @@ export class ObjectInspector {
 
     async handleNodeRecreate(entity) {
         // Check if entity is one end of a missing bone or a bone with missing ends
+        console.log('Node recreate');
         if (entity instanceof Keypoint) {
             // Find missing bones connected to this keypoint
             const missingBones = this.findMissingBonesForKeypoint(entity);
@@ -701,5 +732,23 @@ export class ObjectInspector {
         });
         
         return missingBones;
+    }
+
+    isNodeCreateValid(entity) {
+        if (entity instanceof Keypoint) {
+            return this.findMissingBonesForKeypoint(entity).length > 0;
+        } else if (entity instanceof Bone) {
+            const startPos = entity.start.getPosition();
+            const endPos = entity.end.getPosition();
+            return !startPos || !endPos;
+        }
+        return false;
+    }
+
+    isNodeDeleteValid(entity) {
+        if (entity instanceof Keypoint) {
+            return entity.getPosition() !== null;
+        }
+        return false;
     }
 }
