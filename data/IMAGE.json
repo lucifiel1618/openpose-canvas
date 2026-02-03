@@ -1,0 +1,26 @@
+{
+  "format": "IMAGE",
+
+  "vertices": {
+    "TopLeft": [0, 0],
+    "TopRight": [300, 0],
+    "BotRight": [300, 300],
+    "BotLeft": [0, 300]
+  },
+
+  "edges": [
+    ["TopLeft","TopRight"],
+    ["TopRight","BotRight"],
+    ["BotRight","BotLeft"],
+    ["BotLeft","TopLeft"]
+  ],
+
+  "limbs": {
+    "Box": ["TopLeft","TopRight","BotRight","BotLeft"]
+  },
+
+  "metadata": {
+    "canvas_width": 512,
+    "canvas_height": 512
+  }
+}

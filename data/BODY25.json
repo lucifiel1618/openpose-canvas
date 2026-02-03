@@ -1,0 +1,77 @@
+{
+  "format": "BODY25",
+
+  "vertices": {
+    "Nose": [0, -110],
+    "Neck": [0, -80],
+
+    "RShoulder": [40, -80],
+    "RElbow": [75, -45],
+    "RWrist": [105, -10],
+
+    "LShoulder": [-40, -80],
+    "LElbow": [-75, -45],
+    "LWrist": [-105, -10],
+
+    "MidHip": [0, 0],
+
+    "RHip": [25, 0],
+    "RKnee": [30, 80],
+    "RAnkle": [30, 150],
+
+    "LHip": [-25, 0],
+    "LKnee": [-30, 80],
+    "LAnkle": [-30, 150],
+
+    "REye": [10, -120],
+    "LEye": [-10, -120],
+    "REar": [25, -115],
+    "LEar": [-25, -115],
+
+    "LBigToe": [-40, 175],
+    "LSmallToe": [-20, 175],
+    "LHeel": [-30, 165],
+
+    "RBigToe": [40, 175],
+    "RSmallToe": [20, 175],
+    "RHeel": [30, 165]
+  },
+
+  "edges": [
+    ["Nose", "Neck"],
+    ["Nose", "REye"], ["REye", "REar"],
+    ["Nose", "LEye"], ["LEye", "LEar"],
+
+    ["Neck", "RShoulder"], ["RShoulder", "RElbow"], ["RElbow", "RWrist"],
+    ["Neck", "LShoulder"], ["LShoulder", "LElbow"], ["LElbow", "LWrist"],
+
+    ["Neck", "MidHip"],
+
+    ["MidHip", "RHip"], ["RHip", "RKnee"], ["RKnee", "RAnkle"],
+    ["MidHip", "LHip"], ["LHip", "LKnee"], ["LKnee", "LAnkle"],
+
+    ["RAnkle", "RHeel"], ["RHeel", "RBigToe"], ["RHeel", "RSmallToe"],
+    ["LAnkle", "LHeel"], ["LHeel", "LBigToe"], ["LHeel", "LSmallToe"]
+  ],
+
+  "limbs": {
+    "Head": ["Nose", "Neck", "REye", "LEye", "REar", "LEar"],
+    "RightArm": ["Neck", "RShoulder", "RElbow", "RWrist"],
+    "LeftArm": ["Neck", "LShoulder", "LElbow", "LWrist"],
+    "RightLeg": ["MidHip", "RHip", "RKnee", "RAnkle"],
+    "LeftLeg": ["MidHip", "LHip", "LKnee", "LAnkle"],
+    "RightFoot": ["RHeel", "RBigToe", "RSmallToe"],
+    "LeftFoot": ["LHeel", "LBigToe", "LSmallToe"]
+  },
+
+  "metadata": {
+    "canvas_width": 512,
+    "canvas_height": 512,
+    "includes": {
+      "BODY": 25,
+      "FACE": 70,
+      "HAND_LEFT": 21,
+      "HAND_RIGHT": 21
+    }
+  }
+}

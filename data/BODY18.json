@@ -1,0 +1,225 @@
+{
+  "format": "BODY18",
+
+  "vertices": {
+    "Nose": [0, -223],
+    "Neck": [0, -80],
+
+    "RShoulder": [-125, -91],
+    "RElbow": [-211, 4],
+    "RWrist": [-257, 90],
+
+    "LShoulder": [125, -91],
+    "LElbow": [211, 4],
+    "LWrist": [257, 90],
+
+    "RHip": [-50, 151],
+    "RKnee": [-130, 312],
+    "RAnkle": [-224, 487],
+
+    "LHip": [50, 151],
+    "LKnee": [130, 312],
+    "LAnkle": [224, 487],
+
+    "REye": [-48, -260],
+    "LEye": [48, -260],
+    "REar": [-114, -234],
+    "LEar": [114, -234],
+
+    "Face_0": [-98, -260], "Face_1": [-98, -234], "Face_2": [-98, -208], "Face_3": [-92, -187],
+    "Face_4": [-81, -166], "Face_5": [-65, -150], "Face_6": [-54, -140], "Face_7": [-32, -129],
+    "Face_8": [0, -124], "Face_9": [32, -129], "Face_10": [54, -140], "Face_11": [65, -150],
+    "Face_12": [81, -166], "Face_13": [92, -187], "Face_14": [98, -208], "Face_15": [98, -234],
+    "Face_16": [98, -260],
+
+    "Face_17": [-81, -281], "Face_18": [-65, -286], "Face_19": [-54, -286], "Face_20": [-37, -286], "Face_21": [-21, -281],
+    "Face_22": [21, -281], "Face_23": [37, -286], "Face_24": [54, -286], "Face_25": [65, -286], "Face_26": [81, -281],
+
+    "Face_27": [0, -255], "Face_28": [0, -244], "Face_29": [0, -234], "Face_30": [0, -218],
+    "Face_31": [-21, -208], "Face_32": [-10, -203], "Face_33": [0, -201], "Face_34": [10, -203], "Face_35": [21, -208],
+
+    "Face_36": [-54, -255], "Face_37": [-43, -260], "Face_38": [-32, -260], "Face_39": [-26, -255], "Face_40": [-37, -255], "Face_41": [-48, -255],
+    "Face_42": [26, -255], "Face_43": [32, -260], "Face_44": [43, -260], "Face_45": [54, -255], "Face_46": [48, -255], "Face_47": [37, -255],
+
+    "Face_48": [-37, -176], "Face_49": [-26, -182], "Face_50": [-14, -184], "Face_51": [0, -182], "Face_52": [14, -184], "Face_53": [26, -182],
+    "Face_54": [37, -176], "Face_55": [26, -166], "Face_56": [14, -163], "Face_57": [0, -162], "Face_58": [-14, -163], "Face_59": [-26, -166],
+
+    "Face_60": [-37, -176], "Face_61": [-21, -176], "Face_62": [0, -176], "Face_63": [21, -176], "Face_64": [37, -176],
+    "Face_65": [21, -171], "Face_66": [0, -171], "Face_67": [-21, -171],
+
+    "Face_68": [-48, -260], "Face_69": [48, -260],
+
+    "LHand_0": [257, 90], "LHand_1": [277, 100], "LHand_2": [292, 130], "LHand_3": [297, 155], "LHand_4": [299, 180],
+    "LHand_5": [232, 160], "LHand_6": [229, 210], "LHand_7": [227, 245], "LHand_8": [226, 270],
+    "LHand_9": [249, 160], "LHand_10": [247, 215], "LHand_11": [246, 253], "LHand_12": [245, 280],
+    "LHand_13": [266, 160], "LHand_14": [268, 212], "LHand_15": [269, 247], "LHand_16": [270, 272],
+    "LHand_17": [282, 155], "LHand_18": [285, 195], "LHand_19": [287, 223], "LHand_20": [288, 243],
+
+    "RHand_0": [-257, 90], "RHand_1": [-277, 100], "RHand_2": [-292, 130], "RHand_3": [-297, 155], "RHand_4": [-299, 180],
+    "RHand_5": [-232, 160], "RHand_6": [-229, 210], "RHand_7": [-227, 245], "RHand_8": [-226, 270],
+    "RHand_9": [-249, 160], "RHand_10": [-247, 215], "RHand_11": [-246, 253], "RHand_12": [-245, 280],
+    "RHand_13": [-266, 160], "RHand_14": [-268, 212], "RHand_15": [-269, 247], "RHand_16": [-270, 272],
+    "RHand_17": [-282, 155], "RHand_18": [-285, 195], "RHand_19": [-287, 223], "RHand_20": [-288, 243]
+  },
+
+  "edges": [
+    ["Nose","Neck"], ["Nose","REye"], ["REye","REar"], ["Nose","LEye"], ["LEye","LEar"],
+    ["Neck","RShoulder"], ["RShoulder","RElbow"], ["RElbow","RWrist"],
+    ["Neck","LShoulder"], ["LShoulder","LElbow"], ["LElbow","LWrist"],
+    ["Neck","RHip"], ["RHip","RKnee"], ["RKnee","RAnkle"],
+    ["Neck","LHip"], ["LHip","LKnee"], ["LKnee","LAnkle"],
+
+    ["Face_0","Face_1"], ["Face_1","Face_2"], ["Face_2","Face_3"], ["Face_3","Face_4"],
+    ["Face_4","Face_5"], ["Face_5","Face_6"], ["Face_6","Face_7"], ["Face_7","Face_8"],
+    ["Face_8","Face_9"], ["Face_9","Face_10"], ["Face_10","Face_11"], ["Face_11","Face_12"],
+    ["Face_12","Face_13"], ["Face_13","Face_14"], ["Face_14","Face_15"], ["Face_15","Face_16"],
+
+    ["Face_17","Face_18"], ["Face_18","Face_19"], ["Face_19","Face_20"], ["Face_20","Face_21"],
+    ["Face_22","Face_23"], ["Face_23","Face_24"], ["Face_24","Face_25"], ["Face_25","Face_26"],
+
+    ["Face_27","Face_28"], ["Face_28","Face_29"], ["Face_29","Face_30"],
+    ["Face_31","Face_32"], ["Face_32","Face_33"], ["Face_33","Face_34"], ["Face_34","Face_35"],
+
+    ["Face_36","Face_37"], ["Face_37","Face_38"], ["Face_38","Face_39"], ["Face_39","Face_40"],
+    ["Face_40","Face_41"], ["Face_41","Face_36"],
+
+    ["Face_42","Face_43"], ["Face_43","Face_44"], ["Face_44","Face_45"], ["Face_45","Face_46"],
+    ["Face_46","Face_47"], ["Face_47","Face_42"],
+
+    ["Face_48","Face_49"], ["Face_49","Face_50"], ["Face_50","Face_51"], ["Face_51","Face_52"],
+    ["Face_52","Face_53"], ["Face_53","Face_54"], ["Face_54","Face_55"], ["Face_55","Face_56"],
+    ["Face_56","Face_57"], ["Face_57","Face_58"], ["Face_58","Face_59"], ["Face_59","Face_48"],
+
+    ["Face_60","Face_61"], ["Face_61","Face_62"], ["Face_62","Face_63"], ["Face_63","Face_64"],
+    ["Face_64","Face_65"], ["Face_65","Face_66"], ["Face_66","Face_67"], ["Face_67","Face_60"],
+
+    ["Face_36","Face_68"], ["Face_42","Face_69"],
+
+    ["RWrist", "RHand_0"],
+
+    ["RHand_0","RHand_1"], ["RHand_1","RHand_2"], ["RHand_2","RHand_3"], ["RHand_3","RHand_4"],
+    ["RHand_0","RHand_5"], ["RHand_5","RHand_6"], ["RHand_6","RHand_7"], ["RHand_7","RHand_8"],
+    ["RHand_0","RHand_9"], ["RHand_9","RHand_10"], ["RHand_10","RHand_11"], ["RHand_11","RHand_12"],
+    ["RHand_0","RHand_13"], ["RHand_13","RHand_14"], ["RHand_14","RHand_15"], ["RHand_15","RHand_16"],
+    ["RHand_0","RHand_17"], ["RHand_17","RHand_18"], ["RHand_18","RHand_19"], ["RHand_19","RHand_20"],
+
+    ["LWrist", "LHand_0"],
+
+    ["LHand_0","LHand_1"], ["LHand_1","LHand_2"], ["LHand_2","LHand_3"], ["LHand_3","LHand_4"],
+    ["LHand_0","LHand_5"], ["LHand_5","LHand_6"], ["LHand_6","LHand_7"], ["LHand_7","LHand_8"],
+    ["LHand_0","LHand_9"], ["LHand_9","LHand_10"], ["LHand_10","LHand_11"], ["LHand_11","LHand_12"],
+    ["LHand_0","LHand_13"], ["LHand_13","LHand_14"], ["LHand_14","LHand_15"], ["LHand_15","LHand_16"],
+    ["LHand_0","LHand_17"], ["LHand_17","LHand_18"], ["LHand_18","LHand_19"], ["LHand_19","LHand_20"]
+  ],
+
+  "limbs": {
+    "Head": ["Nose","Neck","REye","LEye","REar","LEar"],
+    "JawLine": ["Face_0","Face_1","Face_2","Face_3","Face_4","Face_5","Face_6","Face_7","Face_8","Face_9","Face_10","Face_11","Face_12","Face_13","Face_14","Face_15","Face_16"],
+    "RightEyebrow": ["Face_17","Face_18","Face_19","Face_20","Face_21"],
+    "LeftEyebrow": ["Face_22","Face_23","Face_24","Face_25","Face_26"],
+    "NoseBridge": ["Face_27","Face_28","Face_29","Face_30"],
+    "NoseBottom": ["Face_31","Face_32","Face_33","Face_34","Face_35"],
+    "RightEye": ["Face_36","Face_37","Face_38","Face_39","Face_40","Face_41", "Face_69"],
+    "LeftEye": ["Face_42","Face_43","Face_44","Face_45","Face_46","Face_47", "Face_68"],
+    "OuterLip": ["Face_48","Face_49","Face_50","Face_51","Face_52","Face_53","Face_54","Face_55","Face_56","Face_57","Face_58","Face_59"],
+    "InnerLip": ["Face_60","Face_61","Face_62","Face_63","Face_64","Face_65","Face_66","Face_67"],
+    "RightHand": [".RightHandPalm", ".RightHandFingerThumb", ".RightHandFingerIndex", ".RightHandFingerMiddle", ".RightHandFingerRing", ".RightHandFingerPinky"],
+    "LeftHand": [".LeftHandPalm", ".LeftHandFingerThumb", ".LeftHandFingerIndex", ".LeftHandFingerMiddle", ".LeftHandFingerRing", ".LeftHandFingerPinky"],
+    "RightArm": ["RShoulder","RElbow","RWrist"],
+    "LeftArm": ["LShoulder","LElbow","LWrist"],
+    "RightLeg": ["RHip","RKnee","RAnkle"],
+    "LeftLeg": ["LHip","LKnee","LAnkle"],
+    ".Face": [".JawLine", ".RightEyebrow", ".LeftEyebrow", ".NoseBridge", ".NoseBottom", ".RightEye", ".LeftEye", ".OuterLip", ".InnerLip"],
+    ".Body": [".RightArm", ".LeftArm", ".RightLeg", ".LeftLeg"],
+
+
+    ".RightHandPalm": [
+      "RHand_0"
+    ],
+
+    ".RightHandFingerThumb": [
+      "RHand_1",
+      "RHand_2",
+      "RHand_3",
+      "RHand_4"
+    ],
+
+    ".RightHandFingerIndex": [
+      "RHand_5",
+      "RHand_6",
+      "RHand_7",
+      "RHand_8"
+    ],
+
+    ".RightHandFingerMiddle": [
+      "RHand_9",
+      "RHand_10",
+      "RHand_11",
+      "RHand_12"
+    ],
+
+    ".RightHandFingerRing": [
+      "RHand_13",
+      "RHand_14",
+      "RHand_15",
+      "RHand_16"
+    ],
+
+    ".RightHandFingerPinky": [
+      "RHand_17",
+      "RHand_18",
+      "RHand_19",
+      "RHand_20"
+    ],
+
+    ".LeftHandPalm": [
+      "LHand_0"
+    ],
+
+    ".LeftHandFingerThumb": [
+      "LHand_1",
+      "LHand_2",
+      "LHand_3",
+      "LHand_4"
+    ],
+
+    ".LeftHandFingerIndex": [
+      "LHand_5",
+      "LHand_6",
+      "LHand_7",
+      "LHand_8"
+    ],
+
+    ".LeftHandFingerMiddle": [
+      "LHand_9",
+      "LHand_10",
+      "LHand_11",
+      "LHand_12"
+    ],
+
+    ".LeftHandFingerRing": [
+      "LHand_13",
+      "LHand_14",
+      "LHand_15",
+      "LHand_16"
+    ],
+
+    ".LeftHandFingerPinky": [
+      "LHand_17",
+      "LHand_18",
+      "LHand_19",
+      "LHand_20"
+    ]
+  },
+
+  "metadata": {
+    "canvas_width": 512,
+    "canvas_height": 512,
+    "includes": {
+      "BODY": 18,
+      "Face": 70,
+      "RHand": 21,
+      "LHand": 21
+    }
+  }
+}

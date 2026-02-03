@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenposeCanvas</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div id="app">
+        <div id="toolbox-canvas-wrapper">
+            <div id="toolbar">
+                <!-- Navigation Controls -->
+                <div class="toolbar-group">
+                    <button id="panBtn" class="toolbar-btn" title="Pan (drag to move canvas)">
+                        <img src="assets/icons/pan.svg" class="toolbar-icon" alt="" aria-hidden="true">
+                    </button>
+                </div>
+
+                <!-- Zoom Controls -->
+                <div class="toolbar-group">
+                    <div class="zoom-control">
+                        <img src="assets/icons/zoom.svg" class="toolbar-icon" alt="" aria-hidden="true">
+                        <button id="zoomOutBtn" class="zoom-btn" title="Zoom Out">−</button>
+                        <input id="zoomInput" class="zoom-input" type="text" value="100%" inputmode="decimal" autocomplete="off" />
+                        <button id="zoomInBtn" class="zoom-btn" title="Zoom In">+</button>
+                    </div>
+                </div>
+
+                <!-- View Controls -->
+                <div class="toolbar-group">
+                    <button id="zoomDrawingBtn" class="toolbar-btn" title="Zoom to Drawing">
+                        <img src="assets/icons/fit-to-objects.svg" class="toolbar-icon" alt="" aria-hidden="true">
+                    </button>
+                    <button id="fitToPageBtn" class="toolbar-btn" title="Fit to Page">
+                        <img src="assets/icons/fit-to-page.svg" class="toolbar-icon" alt="" aria-hidden="true">
+                    </button>
+                </div>
+
+                <!-- Page Settings -->
+                <div class="toolbar-group toolbar-group--expand">
+                    <div class="page-control">
+                        <img src="assets/icons/page-size.svg" class="toolbar-icon" alt="" aria-hidden="true">
+                        <div class="page-inputs">
+                            <input type="number" id="pageWidth" class="page-input" value="1024" min="100" />
+                            <span class="page-separator">×</span>
+                            <input type="number" id="pageHeight" class="page-input" value="1024" min="100" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- History Controls -->
+                <div class="toolbar-group">
+                    <button id="undoBtn" class="toolbar-btn" title="Undo">
+                        <img src="assets/icons/undo.svg" class="toolbar-icon" alt="" aria-hidden="true">
+                    </button>
+                    <button id="redoBtn" class="toolbar-btn" title="Redo">
+                        <img src="assets/icons/redo.svg" class="toolbar-icon" alt="" aria-hidden="true">
+                    </button>
+                </div>
+
+                <!-- Export Controls -->
+                <div class="toolbar-group">
+                    <button id="exportBtn" class="toolbar-btn" title="Export Pose Data">
+                        <img src="assets/icons/export.svg" class="toolbar-icon" alt="" aria-hidden="true">
+                    </button>
+                </div>
+            </div>
+            <div id="toolbox">
+                <div id="toolbox-handle" class="collapse-handle" title="Toggle Toolbox"><span>‹</span></div>
+                <h3>Layers</h3>
+                <div class="toolbox-button-row">
+                    <!-- <button id="addPointBtn" class="toolbox-button">+ Point</button>
+                    <button id="addLineBtn" class="toolbox-button">+ Line</button> -->
+                    <button id="addPersonBtn" class="toolbox-button">+ Person</button>
+                    <button id="addImageBtn" class="toolbox-button">+ Image</button>
+                    <button id="addLayerBtn" class="toolbox-button">+ Layer</button>
+                </div>
+                <div id="layer-list"></div>
+            </div>
+            <div id="statusbar">
+                <div class="statusbar-section">
+                    <img src="assets/icons/crosshair.svg" class="statusbar-icon" alt="" aria-hidden="true">
+                    <span id="cursor-position" class="statusbar-value">X 0 Y 0</span>
+                </div>
+                <div class="statusbar-section">
+                    <img src="assets/icons/shapes.svg" class="statusbar-icon" alt="" aria-hidden="true">
+                    <span id="selection-info" class="statusbar-value">-</span>
+                </div>
+                <div class="statusbar-section statusbar-buttons">
+                    <button id="lockBtn" class="statusbar-icon-button" title="Lock/Unlock selected shapes">
+                        <img src="assets/icons/lock.svg" class="statusbar-icon" alt="Lock/Unlock">
+                    </button>
+                    <button id="visBtn" class="statusbar-icon-button" title="Show/Hide selected shapes">
+                        <img src="assets/icons/show.svg" class="statusbar-icon" alt="Show/Hide">
+                    </button>
+                    <button id="delNodeBtn" class="statusbar-icon-button" title="Delete positions of all keypoints in selected shapes">
+                        <img src="assets/icons/delete.svg" class="statusbar-icon" alt="Delete">
+                    </button>
+                </div>
+            </div>
+            <div id="canvas-container">
+                <div id="fuzzy-search-toggle">
+                    <button id="fuzzy-search-toggle-btn" class="fuzzy-search-toggle-btn" title="Toggle Fuzzy Search">
+                        <img src="assets/icons/query.svg" class="fuzzy-search-icon" alt="Toggle Search">
+                    </button>
+                    <div id="fuzzy-search-container" class="hidden">
+                        <div class="search-box">
+                            <div id="drawable-label" class="hidden">
+                                <span class="label-text"></span>
+                                <span class="label-close">×</span>
+                            </div>
+                            <input type="text" id="fuzzy-search-input" placeholder="Search limbs...">
+                            <button id="close-search">×</button>
+                        </div>
+                        <div id="fuzzy-search-results"></div>
+                    </div>
+                </div>
+                <div id="openpose-canvas">
+                </div>
+                <div class="canvas-overlay" id="node-edit-overlay">
+                    <div class="overlay-text">
+                        Click to select a position<br/>
+                        <span style="opacity:0.8">ESC to exit mode</span>
+                    </div>
+                </div>
+            </div>
+            <div id="object-inspector">
+                <div id="inspector-handle" class="collapse-handle" title="Toggle Inspector"><span>›</span></div>
+                <div class="inspector-header">
+                    <h3>Object</h3>
+                    <button id="deleteObjectBtn" class="delete-btn" title="Delete Object">
+                        <img src="assets/icons/delete.svg" class="delete-icon" alt="" aria-hidden="true">
+                    </button>
+                </div>
+                <div id="object-inspector-content">
+                    <div id="object-preview-container"></div>
+                    <div id="object-attributes-container"></div>
+                </div>
+            </div>
+            <template id="entity-attribute-template">
+                <div class="entity-section">
+                    <div class="entity-divider">
+                        <!-- <span>Entity Properties</span> -->
+                        <div class="line"></div>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+
+                    <div class="entity-content-wrapper">
+                        <div class="attribute-row">
+                            <div class="entity-meta">
+                                <span class="entity-name"></span>
+                                <span class="entity-class"></span>
+                                <button class="icon-btn node-create"><img src="assets/icons/node-create.svg" alt="+"></button>
+                                <button class="icon-btn node-delete"><img src="assets/icons/node-delete.svg" alt="-"></button>
+                            </div>
+                        </div>
+
+                        <div class="attribute-row">
+                            <div class="pos-input-group">
+                                <label>X</label>
+                                <input type="number" class="pos-input x-input" title="X Position">
+                                <label>Y</label>
+                                <input type="number" class="pos-input y-input" title="Y Position">
+                                <button class="icon-btn node-move"><img src="assets/icons/crosshair.svg", alt="𖦏"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </div>
+    <script src="https://unpkg.com/konva@9/konva.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gl-matrix@3.4.3/gl-matrix-min.js"></script>
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
