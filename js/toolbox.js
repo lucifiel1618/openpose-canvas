@@ -97,7 +97,7 @@ export class ToolboxManager {
 
         const visibilityBtn = document.createElement('button');
         const visibilityIcon = document.createElement('img');
-        visibilityIcon.src = '/assets/icons/' + (layer.visible() ? 'show.svg' : 'hide.svg');
+        visibilityIcon.src = 'assets/icons/' + (layer.visible() ? 'show.svg' : 'hide.svg');
         visibilityIcon.className = 'layer-icon';
         visibilityIcon.alt = '';
         visibilityIcon.setAttribute('aria-hidden', 'true');
@@ -106,7 +106,7 @@ export class ToolboxManager {
 
         const lockBtn = document.createElement('button');
         const lockIcon = document.createElement('img');
-        lockIcon.src = '/assets/icons/unlock.svg';
+        lockIcon.src = 'assets/icons/unlock.svg';
         lockIcon.className = 'layer-icon';
         lockIcon.alt = '';
         lockIcon.setAttribute('aria-hidden', 'true');
@@ -115,7 +115,7 @@ export class ToolboxManager {
 
         const importBtn = document.createElement('button');
         const importIcon = document.createElement('img');
-        importIcon.src = '/assets/icons/import.svg';
+        importIcon.src = 'assets/icons/import.svg';
         importIcon.className = 'layer-icon';
         importIcon.alt = '';
         importIcon.setAttribute('aria-hidden', 'true');
@@ -125,7 +125,7 @@ export class ToolboxManager {
 
         const deleteBtn = document.createElement('button');
         const deleteIcon = document.createElement('img');
-        deleteIcon.src = '/assets/icons/delete.svg';
+        deleteIcon.src = 'assets/icons/delete.svg';
         deleteIcon.className = 'layer-icon';
         deleteIcon.alt = '';
         deleteIcon.setAttribute('aria-hidden', 'true');
@@ -187,14 +187,14 @@ export class ToolboxManager {
         this.canvasManager.toggleLayerVisibility(index);
         const layer = this.canvasManager.getLayers()[index];
         const icon = btn.querySelector('img');
-        icon.src = '/assets/icons/' + (layer.visible() ? 'show.svg' : 'hide.svg');
+        icon.src = 'assets/icons/' + (layer.visible() ? 'show.svg' : 'hide.svg');
     }
 
     toggleLock(index, btn) {
         this.canvasManager.toggleLayerLock(index);
         const layer = this.canvasManager.getLayers()[index];
         const icon = btn.querySelector('img');
-        icon.src = '/assets/icons/' + (!layer.getAttr('locked') ? 'unlock.svg' : 'lock.svg');
+        icon.src = 'assets/icons/' + (!layer.getAttr('locked') ? 'unlock.svg' : 'lock.svg');
     }
 
     deleteLayer(index) {

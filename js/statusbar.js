@@ -153,15 +153,15 @@ export class StatusBarManager {
         const visIcon = this.visButton.querySelector('img');
         if (visibleCount === selectedNodes.length) {
             // All hide
-            visIcon.src = '/assets/icons/hide.svg';
+            visIcon.src = 'assets/icons/hide.svg';
             this.visButton.style.opacity = '1';
         } else if (invisibleCount === selectedNodes.length) {
             // All show
-            visIcon.src = '/assets/icons/show.svg';
+            visIcon.src = 'assets/icons/show.svg';
             this.visButton.style.opacity = '1';
         } else {
             // Mixed status - show gray show icon
-            visIcon.src = '/assets/icons/show.svg';
+            visIcon.src = 'assets/icons/show.svg';
             this.visButton.style.opacity = '0.5';
         }
     }
@@ -184,15 +184,15 @@ export class StatusBarManager {
         const lockIcon = this.lockButton.querySelector('img');
         if (lockedCount === selectedNodes.length) {
             // All locked
-            lockIcon.src = '/assets/icons/lock.svg';
+            lockIcon.src = 'assets/icons/lock.svg';
             this.lockButton.style.opacity = '1';
         } else if (unlockedCount === selectedNodes.length) {
             // All unlocked
-            lockIcon.src = '/assets/icons/unlock.svg';
+            lockIcon.src = 'assets/icons/unlock.svg';
             this.lockButton.style.opacity = '1';
         } else {
             // Mixed status - show gray unlock icon
-            lockIcon.src = '/assets/icons/unlock.svg';
+            lockIcon.src = 'assets/icons/unlock.svg';
             this.lockButton.style.opacity = '0.5';
         }
     }
