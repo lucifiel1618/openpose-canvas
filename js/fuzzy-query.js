@@ -1,14 +1,13 @@
 import { dataAccessManager } from './openpose-probe.js';
-
+import { DistortableImage } from './entities.js';
 /* ================================
 * Public API
 * ================================ */
 
-function fuzzyPathSearch(query, pathMap, options = {}) {
-    const {
-        cutoff = 0,
-        maxNum = undefined
-    } = options;
+function fuzzyPathSearch(query, pathMap, options={}) {
+    const {cutoff=0, maxNum=undefined} = options;
+
+    const isRoot = query === '/';
     
     const qSegs = splitPath(query);
     const hasSlash = query.includes("/");
@@ -18,7 +17,7 @@ function fuzzyPathSearch(query, pathMap, options = {}) {
     for (const nodeName of Object.keys(pathMap)) {
         for (const path of pathMap[nodeName]) {
             const data = preprocessPath(path);
-            const score = scorePath(qSegs, hasSlash, data);
+            const score = !isRoot ? scorePath(qSegs, hasSlash, data) : 10;
             
             if (score >= cutoff) {
                 results.push({nodeName, path, score });
@@ -50,7 +49,7 @@ function scorePath(qSegs, hasSlash, data) {
     }
     
     // Exact basename bonus
-    if (data.basenameNoExt.toLowerCase() === qSegs.at(-1).toLowerCase()) {
+    if (data.basenameNoExt.toLowerCase() === qSegs.at(-1)?.toLowerCase()) {
         score += 30;
     }
     
@@ -199,6 +198,7 @@ export class FuzzyQueryManager {
         this.input.value = "";
         this.resultsElement.innerHTML = ''; // Clear any previous styling
         this.renderInitialState();
+        this.handleQuery('/');
     }
 
     async setFormat(formatId) {
@@ -214,7 +214,7 @@ export class FuzzyQueryManager {
     setupEvents() {
         this.input.oninput = (e) => this.handleQuery(e.target.value);
         
-        this.labelClose.onclick = () => this.setCurrentDrawable();
+        this.labelClose.onclick = async () => this.setCurrentDrawable();
         
         this.closeSearch.onclick = () => this.toggle(false);
         
@@ -251,8 +251,9 @@ export class FuzzyQueryManager {
             drawables.forEach(d => {
                 const item = document.createElement('div');
                 item.className = 'group-header'; // Reusing style for consistency
-                item.innerHTML = `<span>📂 ${d.name}</span> <small style="margin-left:8px; color: #888;">${d.format}</small>`;
-                item.onclick = () => this.setCurrentDrawable(d);
+                const icon = d instanceof DistortableImage ? 'assets/icons/image.svg' : 'assets/icons/graph.svg';
+                item.innerHTML = `<span><img src="${icon}" width="16" height="16" style="vertical-align: middle;"> ${d.name}</span> <small style="margin-left:8px; color: #888;">${d.format}</small>`;
+                item.onclick = async () => this.setCurrentDrawable(d);
                 this.resultsElement.appendChild(item);
             });
         }
@@ -262,11 +263,6 @@ export class FuzzyQueryManager {
         if (!this.currentDrawable) {
             // If no drawable selected, filter the layer list instead
             this.filterDrawables(query);
-            return;
-        }
-
-        if (!query) {
-            this.resultsElement.innerHTML = '';
             return;
         }
 
@@ -283,8 +279,9 @@ export class FuzzyQueryManager {
         drawables.forEach(d => {
             const item = document.createElement('div');
             item.className = 'group-header';
-            item.innerHTML = `<span>📂 ${d.name}</span>`;
-            item.onclick = () => this.setCurrentDrawable(d);
+            const icon = d instanceof DistortableImage ? 'assets/icons/image.svg' : 'assets/icons/graph.svg';
+            item.innerHTML = `<span><img src="${icon}" width="16" height="16" style="vertical-align: middle;"> ${d.name}</span>`;
+            item.onclick = async () => this.setCurrentDrawable(d);
             this.resultsElement.appendChild(item);
         });
     }

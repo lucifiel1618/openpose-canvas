@@ -25,7 +25,7 @@ export class ToolboxManager {
         this.addPointBtn?.addEventListener('click', () => this.addPoint());
         this.addLineBtn?.addEventListener('click', () => this.addLine());
         this.addPersonBtn?.addEventListener('click', () => this.addPerson());
-        this.addImageBtn?.addEventListener('click', () => this.addImage());
+        this.addImageBtn?.addEventListener('click', () => this.openImportDialog(this.canvasManager.currentLayerIndex));
         
         // Setup file drag-drop on addLayerBtn
         this.setupAddLayerBtnDragDrop();
