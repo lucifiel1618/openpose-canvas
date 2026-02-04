@@ -642,6 +642,7 @@ export class SkeletonDataAccess {
             for (const canvas of canvases) {
                 // Get people from this canvas
                 const people = canvas.people || [];
+                let isNormalized = formatInfo === OpenPoseFormats.BODY18COMFYUI;
                 
                 for (const personData of people) {
                     // Skip if this is a canvas object without person data
@@ -651,6 +652,17 @@ export class SkeletonDataAccess {
                     
                     // Extract person keypoints
                     const skeletonData = await this.extractPerson(personData, targetFormat);
+                    isNormalized &&= skeletonData.positions.every(v => Math.abs(v) <= 1);
+                    if (isNormalized) {
+                        for (let i = 0; i < skeletonData.positions.length; i += 2) {
+                            if (skeletonData.positions[i] !== null) {
+                                skeletonData.positions[i] *= canvas.canvas_width;
+                            };
+                            if (skeletonData.positions[i + 1] !== null) {
+                                skeletonData.positions[i + 1] *= canvas.canvas_height;
+                            };
+                        }
+                    }
                     skeletonData.layer_id = currentLayerId;
                     
                     results.push(skeletonData);
