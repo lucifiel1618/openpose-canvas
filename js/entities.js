@@ -335,6 +335,9 @@ export class Keypoint extends Entity {
             layer.add(this.shape);
             // console.debug(`Created keypoint ${this.name} at (${this._position.x}, ${this._position.y})`);
         } else {
+            if (layer !== this.shape.getLayer()) {
+                this.shape.moveTo(layer);
+            }
             this.shape.position(this._position);
             this.shape.visible(true);
         }
@@ -516,6 +519,9 @@ export class Bone extends Entity {
             layer.add(this.shape);
             // console.log(`Created bone ${this.name} from (${startPos.x}, ${startPos.y}) to (${endPos.x}, ${endPos.y})`);
         } else {
+            if (this.shape.getLayer() !== layer) {
+                this.shape.moveTo(layer);
+            }
             console.debug(`Moved bone ${this.name} from (${startPos.x}, ${startPos.y}) to (${endPos.x}, ${endPos.y})`);
             this.shape.points([startPos.x, startPos.y, endPos.x, endPos.y]);
             this.shape.visible(true);

@@ -466,42 +466,124 @@ export class ObjectInspector {
     renderAttributes(drawable) {
         this.attributesContainer.innerHTML = '';
         
-        // Name
-        this.createAttributeRow('Name', drawable.name, (val) => {
-            drawable.name = val;
-            // Also update layer name if it was linked? 
-            // The ToolboxManager handles layer names. 
-            // Drawable name is internal usually.
+        const template = document.getElementById('drawable-attribute-template');
+        const clone = template.content.cloneNode(true);
+        
+        // Name input
+        const nameInput = clone.querySelector('.name-input');
+        nameInput.value = drawable.name;
+        nameInput.addEventListener('change', (e) => {
+            drawable.name = e.target.value;
+        });
+        nameInput.addEventListener('input', (e) => {
+            drawable.name = e.target.value;
         });
         
-        // Position (X, Y) - of the whole drawable (e.g. Neck or TopLeft)
+        // X/Y inputs
+        const xInput = clone.querySelector('.drawable-x-input');
+        const yInput = clone.querySelector('.drawable-y-input');
+        
         const pos = drawable.getPosition();
         if (pos) {
-            this.createAttributeRow('X', Math.round(pos.x), (val) => {
-                const newX = parseFloat(val);
-                const current = drawable.getPosition();
-                if (!isNaN(newX) && current) {
-                    drawable.setPosition({x: newX, y: current.y});
-                    this.canvasManager.stage.draw();
-                }
-            }, 'number');
-            
-            this.createAttributeRow('Y', Math.round(pos.y), (val) => {
-                const newY = parseFloat(val);
-                const current = drawable.getPosition();
-                if (!isNaN(newY) && current) {
-                    drawable.setPosition({x: current.x, y: newY});
-                    this.canvasManager.stage.draw();
-                }
-            }, 'number');
+            xInput.value = Math.round(pos.x);
+            yInput.value = Math.round(pos.y);
         }
+        
+        const updateX = (e) => {
+            const newX = parseFloat(e.target.value);
+            const current = drawable.getPosition();
+            if (!isNaN(newX) && current) {
+                drawable.setPosition({x: newX, y: current.y});
+                this.canvasManager.stage.draw();
+            }
+        };
+        xInput.addEventListener('change', updateX);
+        xInput.addEventListener('input', updateX);
+        
+        const updateY = (e) => {
+            const newY = parseFloat(e.target.value);
+            const current = drawable.getPosition();
+            if (!isNaN(newY) && current) {
+                drawable.setPosition({x: current.x, y: newY});
+                this.canvasManager.stage.draw();
+            }
+        };
+        yInput.addEventListener('change', updateY);
+        yInput.addEventListener('input', updateY);
+        
+        // Layer dropdown
+        const layerSelect = clone.querySelector('.layer-select');
+        this.populateLayerDropdown(layerSelect, drawable);
+        
+        this.attributesContainer.appendChild(clone);
         
         // Add collapsible element for the last selected entity
         this.renderEntityAttributes();
-        
-        // Scale? Rotation? (Not implemented in base Drawable easily yet, usually handled by Transformer)
     }
     
+    populateLayerDropdown(layerSelect, drawable) {
+        // Clear existing options
+        layerSelect.innerHTML = '';
+        
+        // Get all layers from canvas manager
+        const layers = this.canvasManager.layers;
+        
+        // Add option for each layer
+        layers.forEach((layer, index) => {
+            const option = document.createElement('option');
+            option.value = index;
+            option.textContent = layer.name() || `Layer ${index + 1}`;
+            layerSelect.appendChild(option);
+        });
+        
+        // Set current layer
+        let currentLayerIndex = 0;
+        if (drawable._layer) {
+            currentLayerIndex = layers.indexOf(drawable._layer);
+            if (currentLayerIndex === -1) currentLayerIndex = 0;
+        }
+        layerSelect.value = currentLayerIndex;
+        
+        // Add change event listener
+        layerSelect.addEventListener('change', (e) => {
+            const newLayerIndex = parseInt(e.target.value);
+            this.moveDrawableToLayer(drawable, newLayerIndex);
+        });
+    }
+    
+    moveDrawableToLayer(drawable, newLayerIndex) {
+        if (!this.canvasManager.layers[newLayerIndex]) return;
+        
+        const oldLayer = drawable._layer;
+        const newLayer = this.canvasManager.layers[newLayerIndex];
+        
+        if (oldLayer === newLayer) return;
+        
+        // Remove drawable from old layer's PoseLayer
+        const oldPoseLayer = this.canvasManager.scene.poseLayers.find(poseLayer => poseLayer.layer === oldLayer);
+        if (oldPoseLayer) {
+            oldPoseLayer.removeDrawable(drawable);
+        }
+        
+        // Add drawable to new layer's PoseLayer
+        const newPoseLayer = this.canvasManager.scene.poseLayers[newLayerIndex];
+        if (newPoseLayer) {
+            newPoseLayer.renderDrawable(drawable);
+        }
+        
+        // Update the drawable's layer reference
+        drawable._layer = newLayer;
+        
+        // Redraw both layers
+        oldLayer.draw();
+        newLayer.draw();
+        
+        // Update state for undo/redo
+        if (this.canvasManager.revisionManager) {
+            this.canvasManager.scene.changeState(true);
+        }
+    }
+
     updateAttributeValues(drawable) {
         // Update input values if they changed
         const pos = drawable.getPosition();
@@ -510,6 +592,18 @@ export class ObjectInspector {
             const yInput = this.attributesContainer.querySelector('input[data-attr="Y"]');
             if (xInput && document.activeElement !== xInput) xInput.value = Math.round(pos.x);
             if (yInput && document.activeElement !== yInput) yInput.value = Math.round(pos.y);
+        }
+        
+        // Update layer dropdown if drawable's layer changed
+        const layerSelect = this.attributesContainer.querySelector('.layer-select');
+        if (layerSelect && document.activeElement !== layerSelect) {
+            const layers = this.canvasManager.layers;
+            let currentLayerIndex = 0;
+            if (drawable._layer) {
+                currentLayerIndex = layers.indexOf(drawable._layer);
+                if (currentLayerIndex === -1) currentLayerIndex = 0;
+            }
+            layerSelect.value = currentLayerIndex;
         }
     }
 

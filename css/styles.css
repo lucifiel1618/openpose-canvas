@@ -333,15 +333,16 @@ body {
     font-size: 14px;
     color: #555;
     font-weight: 500;
+    margin-right: 3px;
 }
 
 .attribute-row input {
-    width: 120px;
+    flex: 1;
     padding: 6px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    font-size: 13px;
     color: #333;
+    margin-right: 3px;
 }
 
 .attribute-row input:focus {
@@ -355,7 +356,7 @@ body {
     padding-top: 10px;
 }
 
-/* The Divider Bar */
+/* Entity Divider */
 .entity-divider {
     display: flex;
     align-items: center;
@@ -385,7 +386,7 @@ body {
     transition: transform 0.2s;
 }
 
-/* Collapsible Logic */
+/* Entity Content Wrapper - Collapsible */
 .entity-content-wrapper {
     overflow: hidden;
     transition: max-height 0.25s ease-out, opacity 0.2s;
@@ -403,17 +404,22 @@ body {
     transform: rotate(-90deg);
 }
 
-/* Metadata Styling */
+/* Entity Content Components */
 .entity-meta {
     font-size: 13px;
     color: #333;
     display: flex;
     gap: 5px;
-    flex: 1; /* Added: ensures container fills the row width */
+    flex: 1;
 }
 
-/* Added: Forces the Create/Delete buttons to the right */
-.entity-meta .icon-btn:first-of-type {
+.entity-class {
+    color: #888;
+    font-style: italic;
+}
+
+/* Entity Icon Buttons */
+.attribute-row .icon-btn:first-of-type {
     margin-left: auto;
 }
 
@@ -425,55 +431,38 @@ body {
     display: flex;
 }
 
-.entity-content-wrapper .icon-btn:hover { background: #eee; }
-.entity-content-wrapper .icon-btn img { width: 12px; height: 12px; }
+.entity-content-wrapper .icon-btn:hover {
+    background: #eee;
+}
 
-.entity-content-wrapper .icon-btn:disabled,
+.entity-content-wrapper .icon-btn img {
+    width: 12px;
+    height: 12px;
+}
+
 .entity-content-wrapper .icon-btn.disabled {
     opacity: 0.4;
     cursor: not-allowed;
     pointer-events: none;
 }
 
-.entity-class { color: #888; font-style: italic; }
-
-/* Input Grouping */
+/* Position Input Grouping */
 .pos-input-group {
     display: flex;
     gap: 4px;
     align-items: center;
-    flex: 1; /* Added: ensures container fills the row width */
-}
-
-/* Added: Forces the crosshair move button to the right */
-.pos-input-group .node-move {
-    margin-left: auto;
+    flex: 1;
 }
 
 .pos-input-group input {
-    width: 50px !important; /* Overriding default wide input */
+    width: 50px !important;
     padding: 4px !important;
     text-align: center;
 }
 
-.crosshair-icon {
-    opacity: 0.5;
-    width: 14px;
-    height: 14px;
-}
 
-.crosshair-icon .entity-icon {
-    width: 14px;
-    height: 14px;
-}
 
-#zoomPM div:hover {
-    background: #e8e8e8;
-}
 
-#zoomPM div:active {
-    background: #d0d0d0;
-}
 
 #toolbar {
     grid-column: 1 / -1;
@@ -564,15 +553,7 @@ body {
     pointer-events: none;
 }
 
-#toolbox {
-    grid-column: 1;
-    grid-row: 2;
-}
 
-#canvas-container {
-    grid-column: 2;
-    grid-row: 2;
-}
 
 /* Zoom Control */
 .zoom-control {

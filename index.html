@@ -144,6 +144,26 @@
                     <div id="object-attributes-container"></div>
                 </div>
             </div>
+            <template id="drawable-attribute-template">
+                <div class="attribute-row">
+                    <label>Name</label>
+                    <input type="text" class="name-input" data-attr="Name">
+                </div>
+                <div class="attribute-row">
+                    <label>Layer</label>
+                    <select class="layer-select" data-attr="Layer">
+                        <!-- Layers will be populated dynamically -->
+                    </select>
+                </div>
+                <div class="attribute-row">
+                    <div class="pos-input-group">
+                        <label>X</label>
+                        <input type="number" class="pos-input drawable-x-input" data-attr="X">
+                        <label>Y</label>
+                        <input type="number" class="pos-input drawable-y-input" data-attr="Y">
+                    </div>
+                </div>
+            </template>
             <template id="entity-attribute-template">
                 <div class="entity-section">
                     <div class="entity-divider">
@@ -155,8 +175,8 @@
                     <div class="entity-content-wrapper">
                         <div class="attribute-row">
                             <div class="entity-meta">
-                                <span class="entity-name"></span>
-                                <span class="entity-class"></span>
+                                <span class="entity-name">Entity</span>
+                                <span class="entity-class">EntityType</span>
                                 <button class="icon-btn node-create"><img src="assets/icons/node-create.svg" alt="+"></button>
                                 <!-- <button class="icon-btn node-delete"><img src="assets/icons/node-delete.svg" alt="-"></button> -->
                             </div>
@@ -168,12 +188,13 @@
                                 <input type="number" class="pos-input x-input" title="X Position">
                                 <label>Y</label>
                                 <input type="number" class="pos-input y-input" title="Y Position">
-                                <button class="icon-btn node-move"><img src="assets/icons/crosshair.svg", alt="𖦏"></button>
+                                <button class="icon-btn node-move"><img src="assets/icons/crosshair.svg" alt="𖦏"></button>
                             </div>
                         </div>
                     </div>
                 </div>
             </template>
+
         </div>
     </div>
     <script src="https://unpkg.com/konva@9/konva.min.js"></script>
