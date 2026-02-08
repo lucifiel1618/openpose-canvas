@@ -737,6 +737,41 @@ export class CanvasManager {
         this.zoomToScale(scale);
     }
 
+    moveDrawableToLayer(drawable, newLayerIndex) {
+        if (!this.layers[newLayerIndex]) return;
+        
+        const oldLayer = drawable._layer;
+        const newLayer = this.layers[newLayerIndex];
+        
+        if (oldLayer === newLayer) return;
+
+        this.scene.lockStateChange();
+        
+        // Remove drawable from old layer's PoseLayer
+        const oldPoseLayer = this.scene.poseLayers.find(poseLayer => poseLayer.layer === oldLayer);
+        if (oldPoseLayer) {
+            oldPoseLayer.removeDrawable(drawable);
+        }
+        
+        // Add drawable to new layer's PoseLayer
+        const newPoseLayer = this.scene.poseLayers[newLayerIndex];
+        if (newPoseLayer) {
+            newPoseLayer.renderDrawable(drawable);
+        }
+        
+        // Update the drawable's layer reference
+        drawable._layer = newLayer;
+        
+        // Redraw both layers
+        oldLayer.draw();
+        newLayer.draw();
+
+        this.scene.unlockStateChange();
+        
+        // Update state for undo/redo
+        drawable.changeState(true);
+    }
+
     setupMouseWheelZoom() {
         const container = document.getElementById('openpose-canvas');
         if (!container) return;

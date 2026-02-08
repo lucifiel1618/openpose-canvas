@@ -23,10 +23,11 @@ export class Entity {
         /** @type {Entity[]} */ this.children = [];
         /** @type {string|null} */ this._strokeColor = null;
         /** @type {string|null} */ this._fillColor = null;
-        /** @type {number|null} */ this._strokeWidth =4 ;
+        /** @type {number|null} */ this._strokeWidth = 4;
         /** @type {float|null} */ this._alpha = null;
         /** @type {boolean|null} */ this._isSelected = null;
         /** @type {Konva.Shape|null} */ this.shape = null;
+        this._layer = null;
         this._isDestroyed = false;
     }
     
@@ -157,7 +158,6 @@ export class Entity {
     }
     
     changeState(/** @type {boolean} */ statusChanged) {
-        // console.trace(`Backtrace of ${this.name}`);
         this._stateChanged = statusChanged;
         if (this.parent) {
             this.parent.changeState(statusChanged);
@@ -915,6 +915,9 @@ export class DistortableImage extends Drawable {
                         }
                     });
                 } else {
+                    if (this.imageShape.getLayer() !== layer) {
+                        this.imageShape.moveTo(layer);
+                    }
                     this.imageShape.image(transformedImage_config.image);
                     this.imageShape.x(transformedImage_config.x);
                     this.imageShape.y(transformedImage_config.y);
@@ -1104,14 +1107,20 @@ export class PoseLayer {
     }
 
     async addPerson(bbox={x: 0, y: 0, width: null, height: null}, personData=null, {...ctx}={}) {
+        this.scene.lockStateChange();
         const person = await this.scene.addPerson(bbox, personData, ctx);
         this.renderDrawable(person);
+        this.scene.unlockStateChange();
+        person.changeState(true);
         return person;
     }
 
     async addImage(bbox={x: 0, y: 0, width: null, height: null}, imagePath=null, {color=null}={}) {
+        this.scene.lockStateChange();
         const image = await this.scene.addImage(bbox, imagePath, {color});
         this.renderDrawable(image);
+        this.scene.unlockStateChange();
+        image.changeState(true);
         return image;
     }
     

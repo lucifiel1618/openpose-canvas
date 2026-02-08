@@ -2,6 +2,9 @@ import { Person, DistortableImage, Scene, Keypoint, PoseLayer } from './entities
 
 export class RevisionManager {
     constructor(canvasManager=null, {/** @type {Scene} */ scene=null, max_history = 100}={}) {
+        /**
+         * @type {import("./canvas").CanvasManager | null}
+         */
         this.canvasManager = canvasManager;
         this.scene = scene;
         this.onHistoryChange = null;
@@ -39,7 +42,8 @@ export class RevisionManager {
                 visible: drawable.getVisible(),
                 alpha: drawable._alpha,
                 fillColor: drawable._fillColor,
-                strokeColor: drawable._strokeColor
+                strokeColor: drawable._strokeColor,
+                layer: drawable._layer._id
             },
             children: {}
         };
@@ -84,6 +88,7 @@ export class RevisionManager {
     }
 
     handleStateChange() {
+        console.trace("handleStateChange");
         if (this.isUndoing) return;
         const changes = [];
         const currentDrawables = this.scene.drawables;
@@ -253,6 +258,8 @@ export class RevisionManager {
 
     applyDiff(drawable, diff, mode = 'undo') {
         const dir = mode === 'undo' ? 'from' : 'to';
+        const cm = this.canvasManager;
+        cm?.scene.lockStateChange();
 
         // Apply attributes
         if (diff.attributes) {
@@ -261,6 +268,9 @@ export class RevisionManager {
                 if (key === 'visible') drawable.setVisible(val);
                 if (key === 'strokeColor') drawable.setStrokeColor(val); 
                 if (key === 'fillColor') drawable.setFillColor(val); 
+                if (key === 'layer') {
+                    cm?.moveDrawableToLayer(drawable, cm?.getLayers().findIndex(layer => layer._id == val));
+                }
             });
         }
 
@@ -280,6 +290,8 @@ export class RevisionManager {
                 if (d.strokeColor) child._strokeColor = d.strokeColor[dir];
             });
         }
+
+        cm?.scene.unlockStateChange();
     }
 
     async undo() {

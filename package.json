@@ -1,6 +1,6 @@
 {
   "name": "openpose-canvas",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "A standalone, lightweight, browser-based OpenPose skeleton data editor.",
   "license": "MIT",
   "scripts": {

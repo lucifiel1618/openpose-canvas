@@ -2,7 +2,6 @@ import { dataAccessManager } from './openpose-probe.js';
 
 export class ToolboxManager {
     /**
-     * 
      * @param {import("./canvas").CanvasManager} canvasManager
      */
     constructor(canvasManager) {

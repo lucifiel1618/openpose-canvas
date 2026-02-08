@@ -324,30 +324,33 @@ body {
 
 .attribute-row {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    gap: 3px; /* horizontal spacing */
+    margin-bottom: 8px;
 }
 
 .attribute-row label {
     font-size: 14px;
     color: #555;
     font-weight: 500;
-    margin-right: 3px;
 }
 
-.attribute-row input {
+.attribute-row input,
+.attribute-row select {
     flex: 1;
     padding: 6px;
     border: 1px solid #ddd;
     border-radius: 4px;
     color: #333;
-    margin-right: 3px;
+    font-size: 14px;
+    background-color: white;
 }
 
-.attribute-row input:focus {
+.attribute-row input:focus,
+.attribute-row select:focus {
     outline: none;
     border-color: #007acc;
+    box-shadow: 0 0 0 2px rgba(0, 122, 204, 0.2);
 }
 
 /* Container Spacing */
@@ -459,6 +462,8 @@ body {
     padding: 4px !important;
     text-align: center;
 }
+
+
 
 
 

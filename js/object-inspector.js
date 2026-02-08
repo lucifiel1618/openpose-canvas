@@ -547,41 +547,8 @@ export class ObjectInspector {
         // Add change event listener
         layerSelect.addEventListener('change', (e) => {
             const newLayerIndex = parseInt(e.target.value);
-            this.moveDrawableToLayer(drawable, newLayerIndex);
+            this.canvasManager.moveDrawableToLayer(drawable, newLayerIndex);
         });
-    }
-    
-    moveDrawableToLayer(drawable, newLayerIndex) {
-        if (!this.canvasManager.layers[newLayerIndex]) return;
-        
-        const oldLayer = drawable._layer;
-        const newLayer = this.canvasManager.layers[newLayerIndex];
-        
-        if (oldLayer === newLayer) return;
-        
-        // Remove drawable from old layer's PoseLayer
-        const oldPoseLayer = this.canvasManager.scene.poseLayers.find(poseLayer => poseLayer.layer === oldLayer);
-        if (oldPoseLayer) {
-            oldPoseLayer.removeDrawable(drawable);
-        }
-        
-        // Add drawable to new layer's PoseLayer
-        const newPoseLayer = this.canvasManager.scene.poseLayers[newLayerIndex];
-        if (newPoseLayer) {
-            newPoseLayer.renderDrawable(drawable);
-        }
-        
-        // Update the drawable's layer reference
-        drawable._layer = newLayer;
-        
-        // Redraw both layers
-        oldLayer.draw();
-        newLayer.draw();
-        
-        // Update state for undo/redo
-        if (this.canvasManager.revisionManager) {
-            this.canvasManager.scene.changeState(true);
-        }
     }
 
     updateAttributeValues(drawable) {
