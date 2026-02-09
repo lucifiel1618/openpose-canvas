@@ -1156,6 +1156,10 @@ export class PoseLayer {
             this.layer.batchDraw();
         }
     }
+
+    get id() {
+        return this.layer.id();
+    }
     
     clear() {
         this.layer.destroy();

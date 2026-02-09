@@ -20,7 +20,7 @@ export class ToolboxManager {
     }
 
     init() {
-        this.addLayerBtn?.addEventListener('click', () => this.addLayer());
+        this.addLayerBtn?.addEventListener('click', () => this.canvasManager.addLayer());
         this.addPointBtn?.addEventListener('click', () => this.addPoint());
         this.addLineBtn?.addEventListener('click', () => this.addLine());
         this.addPersonBtn?.addEventListener('click', () => this.addPerson());
@@ -32,35 +32,30 @@ export class ToolboxManager {
         this.updateLayerList();
     }
 
-    addLayer() {
-        this.canvasManager.addLayer();
-        this.updateLayerList();
-    }
-
     addPoint() {
         if (!this.canvasManager.getCurrentPoseLayer()) {
-            this.addLayer();
+            this.canvasManager.addLayer();
         }
         this.canvasManager.addPoint(150, 150); // Default position
     }
 
     addLine() {
         if (!this.canvasManager.getCurrentPoseLayer()) {
-            this.addLayer();
+            this.canvasManager.addLayer();
         }
         this.canvasManager.addLine(250, 250, 350, 350); // Default positions
     }
 
     addPerson() {
         if (!this.canvasManager.getCurrentPoseLayer()) {
-            this.addLayer();
+            this.canvasManager.addLayer();
         }
         this.canvasManager.addPerson();
     }
 
     addImage() {
         if (!this.canvasManager.getCurrentPoseLayer()) {
-            this.addLayer();
+            this.canvasManager.addLayer();
         }
         this.canvasManager.addImage();
     }
@@ -129,7 +124,7 @@ export class ToolboxManager {
         deleteIcon.alt = '';
         deleteIcon.setAttribute('aria-hidden', 'true');
         deleteBtn.appendChild(deleteIcon);
-        deleteBtn.addEventListener('click', () => this.deleteLayer(index));
+        deleteBtn.addEventListener('click', () => this.canvasManager.deleteLayer(index));
 
         item.appendChild(nameSpan);
         item.appendChild(visibilityBtn);
@@ -194,11 +189,6 @@ export class ToolboxManager {
         const layer = this.canvasManager.getLayers()[index];
         const icon = btn.querySelector('img');
         icon.src = 'assets/icons/' + (!layer.getAttr('locked') ? 'unlock.svg' : 'lock.svg');
-    }
-
-    deleteLayer(index) {
-        this.canvasManager.deleteLayer(index);
-        this.updateLayerList();
     }
 
     onDragStart(e, index) {
@@ -359,7 +349,7 @@ export class ToolboxManager {
         if (files.length === 0) return;
 
         // Create new layer
-        this.addLayer();
+        this.canvasManager.addLayer();
         const newLayerIndex = this.canvasManager.layers.length - 1;
 
         // Import first file to new layer

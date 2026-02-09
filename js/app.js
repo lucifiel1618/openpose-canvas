@@ -9,7 +9,7 @@ import { NodeEditManager } from './node-edit.js';
 import { FuzzyQueryManager } from './fuzzy-query.js';
 import { RevisionManager } from './revision_manager.js';
 
-const DEV_MODE = false; // this is only for debugging purposes. Make sure it's false for deployed version
+const DEV_MODE = true; // this is only for debugging purposes. Make sure it's false for deployed version
 
 class App {
     constructor() {

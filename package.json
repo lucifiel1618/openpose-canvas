@@ -3,7 +3,13 @@
   "version": "0.1.4",
   "description": "A standalone, lightweight, browser-based OpenPose skeleton data editor.",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "start": "python3 -m http.server 8000"
+  },
+  "dependencies": {
+    "canvas": "^3.2.1",
+    "gl-matrix": "^3.4.3",
+    "konva": "^10.2.0"
   }
 }

@@ -144,10 +144,14 @@ export class CanvasManager {
         this.setupMouseWheelZoom();
     }
 
-    addLayer() {
-        const layer = new Konva.Layer({
-            name: `Layer ${this.layers.length + 1}`,
-        });
+    addLayer(layer=null) {
+        if (layer === null) {
+            layer = new Konva.Layer({
+                id: crypto.randomUUID(),
+                name: `Layer ${this.layers.length + 1}`,
+            });
+        }
+
         this.layers.push(layer);
         this.stage.add(layer);
         
@@ -162,6 +166,8 @@ export class CanvasManager {
         this.currentLayerIndex = this.layers.length - 1;
         this.updateLayerOpacities();
         this.updateUndoRedoButtons();
+        this.scene.changeState(true);
+        this.toolboxManager?.updateLayerList();
         return layer;
     }
 
@@ -179,6 +185,8 @@ export class CanvasManager {
             this.updateLayerOpacities();
             this.stage.draw();
             this.updateUndoRedoButtons();
+            this.scene.changeState(true);
+            this.toolboxManager?.updateLayerList();
         }
     }
 
