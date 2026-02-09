@@ -303,21 +303,36 @@ export class RevisionManager {
         // Restore drawables that belong to this layer
         if (state.drawables && state.drawables.length > 0) {
             for (const drawableUuid of state.drawables) {
-                const drawableState = this.snapshot.get(drawableUuid);
-                if (drawableState) {
-                    // Set the current layer to ensure drawable is added to the restored layer
-                    const savedCurrentLayer = this.canvasManager.getCurrentLayer();
-                    this.canvasManager.setCurrentLayer(newIndex);
-                    
-                    await this.restoreDrawable(drawableState);
-                    
-                    // Restore the original current layer
-                    this.canvasManager.setCurrentLayer(savedCurrentLayer);
+                const existingDrawable = this.findDrawable(drawableUuid);
+                
+                if (existingDrawable) {
+                    // Fix: If drawable already exists (wasn't destroyed), just re-attach to the restored layer
+                    // This prevents duplicate entities with same UUID
+                    poseLayer.renderDrawable(existingDrawable);
                     
                     // Update layer snapshot to include restored drawable
                     const layerState = this.layerSnapshot.get(state.layerId);
                     if (layerState && !layerState.drawables.includes(drawableUuid)) {
                         layerState.drawables.push(drawableUuid);
+                    }
+                } else {
+                    const drawableState = this.snapshot.get(drawableUuid);
+                    if (drawableState) {
+                        // Set the current layer to ensure drawable is added to the restored layer
+                        const savedCurrentLayer = this.canvasManager.getCurrentLayer();
+                        // Use state.layerIndex because layer might have been reordered
+                        this.canvasManager.setCurrentLayer(state.layerIndex);
+                        
+                        await this.restoreDrawable(drawableState);
+                        
+                        // Restore the original current layer
+                        this.canvasManager.setCurrentLayer(savedCurrentLayer);
+                        
+                        // Update layer snapshot to include restored drawable
+                        const layerState = this.layerSnapshot.get(state.layerId);
+                        if (layerState && !layerState.drawables.includes(drawableUuid)) {
+                            layerState.drawables.push(drawableUuid);
+                        }
                     }
                 }
             }
