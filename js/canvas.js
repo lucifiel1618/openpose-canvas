@@ -459,7 +459,7 @@ export class CanvasManager {
     }
 
     selectShapes(shapes, multiSelect = false) {
-        const shapeLayer = shapes[shapes.length - 1].getLayer();
+        const shapeLayer = shapes[shapes.length - 1]?.getLayer();
         const layerIndex = this.layers.indexOf(shapeLayer);
         
         if (layerIndex !== -1 && layerIndex !== this.currentLayerIndex) {

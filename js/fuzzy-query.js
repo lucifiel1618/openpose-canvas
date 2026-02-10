@@ -415,8 +415,14 @@ export class FuzzyQueryManager {
                 if (kp.shape) shapes.push(kp.shape);
             }
         }
-
         this.canvasManager.selectShapes(shapes, false);
+        if (!shapes.length) {
+            const node = this.currentDrawable.keypointsDict[nodeNames[0]];
+            this.canvasManager.objectInspector?.showObject(
+                this.currentDrawable,
+                node ? [node] : []
+            );
+        }
 
     }
 }
