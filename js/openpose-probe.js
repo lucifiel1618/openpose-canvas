@@ -284,6 +284,8 @@ export class SkeletonDataAccess {
         const start = this.getVertexPosition(skeletonData, startIdx, bbox);
         const end = this.getVertexPosition(skeletonData, endIdx, bbox);
         
+        if (!start || !end) return 0;
+
         const dx = end.x - start.x;
         const dy = end.y - start.y;
         return Math.sqrt(dx * dx + dy * dy);
@@ -517,7 +519,7 @@ export class SkeletonDataAccess {
      */
     async _extractCOCO(personData, cocoFormat) {
         const baseSkeletonData = await this.loadSkeletonData(cocoFormat);
-        const skeletonData = {...baseSkeletonData, positions: new Array(baseSkeletonData.positions.length)};
+        const skeletonData = {...baseSkeletonData, positions: new Array(baseSkeletonData.positions.length).fill(null)};
         const bodyKpPositions = await this._importCOCOPartKeypoints(personData, "pose_keypoints_2d");
         skeletonData.positions.splice(0, bodyKpPositions.length, ...bodyKpPositions);
         const entries = [
@@ -580,7 +582,7 @@ export class SkeletonDataAccess {
         const keypoints = personData[partName];
         if (!keypoints) return new Array();
         const numKeypoints = keypoints.length / 3
-        const positions = new Array(numKeypoints * 2);
+        const positions = new Array(numKeypoints * 2).fill(null);
         
         for (let i = 0; i < numKeypoints; i++) {
             const x = keypoints[i * 3];

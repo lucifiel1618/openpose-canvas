@@ -287,6 +287,9 @@ export class Keypoint extends Entity {
     }
     
     _setPosition(pos, updateShape = true) {
+        if (pos && (pos.x === null || pos.y === null)) {
+            pos = null;
+        }
         this._position = pos;
         if (updateShape && this.shape) {
             if (pos !== null) {
