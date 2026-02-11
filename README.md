@@ -2,6 +2,10 @@
 
 [OpenposeCanvas] is a standalone, lightweight, browser-based [OpenPose] skeleton data editor, powered by [Konva.js][konva]. This tool allows users to load, view, and modify [OpenPose] JSON data directly in the browser using an intuitive canvas interface.
 
+👉 **Quick start:** Open the app [HERE][OpenposeCanvas]!
+
+![Screenshot](example/example.png "Screenshot")
+
 ## Motivation
 
 [OpenposeCanvas] is vastly inspired by [openpose-editor]. Its predecessors, however, due to their plugin nature, are pretty limited in features that users would typically expect from a graphics program—such as undo/redo and auto zoom features. This often becomes problematic when the pose detection tool fails miserably at its job and then extensive manual editing is required.
