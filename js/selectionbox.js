@@ -849,7 +849,7 @@ export class SelectionTransformer {
             
             nodeIntersectWithBox(node, box) {
                 if (node instanceof Line) {
-                    return _polylineIntersectsBox(node.points(), node.strokeWidth(), box, {relativeTo: this.stage});
+                    return _polylineIntersectsBox(node.points(), node.strokeWidth(), box);//, {relativeTo: this.stage});
                 }
                 return this.boxesIntersect(box, node.getClientRect({ relativeTo: this.stage }));
             }

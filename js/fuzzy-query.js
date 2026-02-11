@@ -166,6 +166,7 @@ export class FuzzyQueryManager {
         this.limbMap = new Map();
         this.allPaths = [];
         this.cutoff = 1;
+        this._groups = null;
         
         // UI Elements
         this.container = document.getElementById('fuzzy-search-container');
@@ -222,6 +223,9 @@ export class FuzzyQueryManager {
         this.toggleBtn.onclick = () => {
             const isHidden = this.container.classList.contains('hidden');
             this.toggle(isHidden);
+            if (isHidden && this.currentDrawable && this._groups !== null) {
+                this.renderGroups(this._groups);
+            }
         };
         
         window.addEventListener('keydown', (e) => {
@@ -314,6 +318,7 @@ export class FuzzyQueryManager {
     }
 
     renderGroups(groups) {
+        this._groups = groups
         this.resultsElement.innerHTML = '';
         
         Object.entries(groups).forEach(([root, matches]) => {

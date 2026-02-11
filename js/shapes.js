@@ -25,8 +25,9 @@ export class Point extends GeomPrimitive(Konva.Circle) {
     }
 
     setStageScale(scaleFactor) {
+        scaleFactor = Math.min(scaleFactor, 5);
         this.radius(this.baseRadius * scaleFactor);
-        this.strokeWidth(this.baseStrokeWidth * (scaleFactor > 1 ? 1 : scaleFactor));
+        // this.strokeWidth(this.baseStrokeWidth * scaleFactor);
     }
 }
 
@@ -69,7 +70,7 @@ export class Line extends GeomPrimitive(Konva.Line) {
     }
 
     setStageScale(scaleFactor) {
-        this.strokeWidth(this.baseStrokeWidth * (scaleFactor > 1 ? 1 : scaleFactor));
+        // this.strokeWidth(this.baseStrokeWidth * scaleFactor);
     }
 
     setupDragListeners() {

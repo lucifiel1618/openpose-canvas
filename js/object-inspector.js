@@ -213,6 +213,26 @@ export class ObjectInspector {
             // Wait for skeleton build (it's async in the original class)
             // We can cheat and just wait a bit or hook into the promise if exposed.
             // buildSkeleton is async.
+
+            for (const kp of this.previewPerson.getAllKeypoints()) {
+                if (['Face', 'LHand', 'RHand'].some(partName => kp.name.startsWith(partName + '_'))) {
+                    kp.setRadius(7);
+                    kp.setStrokeColor('gray');
+                    kp.setFillColor('gray');
+                } else {
+                    kp.setRadius(21);
+                    kp.setStrokeColor('black');
+                }
+            }
+
+            for (const limb of this.previewPerson.limbs) {
+                for (const bone of limb.children) {
+                    if (['Face', 'LHand', 'RHand'].some(partName => bone.name.startsWith(partName + '_'))) {
+                        bone.setStrokeWidth(3);
+                        bone.setStrokeColor('gray');
+                    }
+                }
+            }
             
             this.previewTimer = setTimeout(() => {
                 if (!this.previewPerson) return;
@@ -701,7 +721,6 @@ export class ObjectInspector {
 
     async handleNodeRecreate(entity) {
         // Check if entity is one end of a missing bone or a bone with missing ends
-        console.log('Node recreate');
         if (entity instanceof Keypoint) {
             // Find missing bones connected to this keypoint
             const missingBones = this.findMissingBonesForKeypoint(entity);

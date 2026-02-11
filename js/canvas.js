@@ -666,6 +666,9 @@ export class CanvasManager {
 
         this.updateZoomInput();
 
+        this.stageScaleFactor = 1 / scale;
+        this.updateShapesScale();
+
         stage.batchDraw();
     }
 

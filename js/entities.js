@@ -256,7 +256,9 @@ export class Entity {
             this._strokeWidth = width;
         }
         if (this.shape !== null) {
-            this.shape.fill(this.getStrokeWidth());
+            const w = this.getStrokeWidth();
+            this.shape.strokeWidth(w);
+            this.shape.baseStrokeWidth = w;
         }
         this.children.forEach(ch => ch.getStrokeWidth(null));
     }
@@ -278,7 +280,7 @@ export class Keypoint extends Entity {
     constructor(name, x = null, y = null, parent = null) {
         super(name, parent);
         this._position = (x !== null && y !== null) ? { x, y } : null;
-        this._radius = 5;
+        this._radius = 9;
         this.shape = null; // Will store the Konva Point
     }
     
@@ -312,6 +314,7 @@ export class Keypoint extends Entity {
         this._radius = radius;
         if (updateShape && this.shape) {
             this.shape.radius(radius);
+            this.shape.baseRadius = radius;
         }
     } 
     
@@ -525,7 +528,7 @@ export class Bone extends Entity {
             if (this.shape.getLayer() !== layer) {
                 this.shape.moveTo(layer);
             }
-            console.debug(`Moved bone ${this.name} from (${startPos.x}, ${startPos.y}) to (${endPos.x}, ${endPos.y})`);
+            // console.debug(`Moved bone ${this.name} from (${startPos.x}, ${startPos.y}) to (${endPos.x}, ${endPos.y})`);
             this.shape.points([startPos.x, startPos.y, endPos.x, endPos.y]);
             this.shape.visible(true);
         }
@@ -653,7 +656,7 @@ export class Drawable extends Entity {
                 }
                 const kp = this.keypointsDict[name];
                 if (['Face', 'LHand', 'RHand'].some(partName => name.startsWith(partName + '_'))) {
-                    kp.setRadius(1);
+                    kp.setRadius(3);
                     kp.setStrokeColor('gray');
                     kp.setFillColor('gray');
                 }
