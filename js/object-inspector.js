@@ -214,24 +214,27 @@ export class ObjectInspector {
             // We can cheat and just wait a bit or hook into the promise if exposed.
             // buildSkeleton is async.
 
-            for (const kp of this.previewPerson.getAllKeypoints()) {
-                if (['Face', 'LHand', 'RHand'].some(partName => kp.name.startsWith(partName + '_'))) {
-                    kp.setRadius(7);
-                    kp.setStrokeColor('gray');
-                    kp.setFillColor('gray');
-                } else {
-                    kp.setRadius(21);
-                    kp.setStrokeColor('black');
-                }
-            }
-
             for (const limb of this.previewPerson.limbs) {
-                for (const bone of limb.children) {
-                    if (['Face', 'LHand', 'RHand'].some(partName => bone.name.startsWith(partName + '_'))) {
+                const isMinorRegions = ['Face', 'LeftHand', 'RightHand'].includes(limb.name);
+                limb.getAllKeypoints().forEach(kp => {
+                    if (isMinorRegions) {
+                        kp.setRadius(7);
+                        kp.setStrokeColor('gray');
+                        kp.setFillColor('gray');
+                    } else {
+                        kp.setRadius(21);
+                        kp.setStrokeColor('black');
+                    }
+
+                });
+                limb.children.forEach(bone => {
+                    if (isMinorRegions) {
                         bone.setStrokeWidth(3);
                         bone.setStrokeColor('gray');
+                    } else {
+                        bone.setStrokeColor('black');
                     }
-                }
+                });
             }
             
             this.previewTimer = setTimeout(() => {
@@ -399,15 +402,16 @@ export class ObjectInspector {
     }
 
     resetPreviewShapeAttribs() {
-        // Reset all bones to default first
-        this.previewLayer.find('Line').forEach(shape => {
-            shape.stroke('black');
-            shape.dash(null);
-        });
-        
-        // Reset all keypoints to default
-        this.previewLayer.find('Point').forEach(shape => {
-            shape.fill('white');
+        this.previewPerson?.children.forEach( ch => {
+            if (ch instanceof Keypoint) {
+                ch.shape.stroke(ch.getStrokeColor());
+                ch.shape.fill('white');
+            } else { // limb
+                ch.children.forEach(bone => {
+                    bone.shape.stroke(bone.getStrokeColor());
+                    bone.shape.dash(null);
+                });
+            }
         });
     }
 
@@ -456,7 +460,7 @@ export class ObjectInspector {
             const previewEntityShape = previewEntity?.shape;
             if (previewEntityShape) {
                 if (previewEntityShape.getClassName() === 'Point') { // Keypoint
-                    previewEntityShape.fill(this.highLightColor); // Highlight color
+                    previewEntityShape.stroke(this.highLightColor); // Highlight color
                 } else if (previewEntityShape.getClassName() === 'Line') { // Bone
                     previewEntityShape.stroke(this.highLightColor);
                 }

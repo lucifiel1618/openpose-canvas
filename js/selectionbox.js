@@ -142,8 +142,9 @@ export class SelectionTransformer {
             // if (this.isLocked(node)) {
             //     return;
             // }
+            const isPassiveNode = this.isPassiveObject(node);
             
-            if (node === this.stage || this.isPassiveObject(node)) {
+            if (node === this.stage || isPassiveNode) {
                 const pos = this.stage.getRelativePointerPosition();
                 
                 if (this.selectionBox && this.selectedNodes.length > 0) {
@@ -160,10 +161,15 @@ export class SelectionTransformer {
                                 if (this.isLocked(n) || this.isPassiveObject(n)) return;
                                 n._startPos = n.position();
                             });
+                            if (e.evt.shiftKey) {
+                                if (isPassiveNode) {
+                                    this.toggleNodeSelection(node);
+                                }
+                            }
                             return;
                         }
                     }
-                    
+
                     this.startDragSelect(pos);
                     
                     if (!e.evt.shiftKey) {
@@ -227,13 +233,15 @@ export class SelectionTransformer {
                 }
                 
                 const now = Date.now();
-                if (this.mouseDownNode && 
+                if (
+                    this.mouseDownNode && 
                     this.wasSelectedOnMouseDown &&
-                    (this.clickDelay === null || now - this.mouseDownTime < this.clickDelay)) {
-                        this.toggleMode();
-                    }
+                    (this.clickDelay === null || now - this.mouseDownTime < this.clickDelay)
+                ) {
+                    this.toggleMode();
+                }
                     
-                    this.mouseDownNode = null;
+                this.mouseDownNode = null;
                 });
             }
             

@@ -113,25 +113,28 @@
   ],
 
   "limbs": {
-    "Head": ["Nose","Neck","REye","LEye","REar","LEar"],
-    "JawLine": ["Face_0","Face_1","Face_2","Face_3","Face_4","Face_5","Face_6","Face_7","Face_8","Face_9","Face_10","Face_11","Face_12","Face_13","Face_14","Face_15","Face_16"],
-    "RightEyebrow": ["Face_17","Face_18","Face_19","Face_20","Face_21"],
-    "LeftEyebrow": ["Face_22","Face_23","Face_24","Face_25","Face_26"],
-    "NoseBridge": ["Face_27","Face_28","Face_29","Face_30"],
-    "NoseBottom": ["Face_31","Face_32","Face_33","Face_34","Face_35"],
-    "RightEye": ["Face_36","Face_37","Face_38","Face_39","Face_40","Face_41", "Face_69"],
-    "LeftEye": ["Face_42","Face_43","Face_44","Face_45","Face_46","Face_47", "Face_68"],
-    "OuterLip": ["Face_48","Face_49","Face_50","Face_51","Face_52","Face_53","Face_54","Face_55","Face_56","Face_57","Face_58","Face_59"],
-    "InnerLip": ["Face_60","Face_61","Face_62","Face_63","Face_64","Face_65","Face_66","Face_67"],
+    "Pose": [".Body", ".Head"],
+    "Face": [".JawLine", ".RightEyebrow", ".LeftEyebrow", ".NoseBridge", ".NoseBottom", ".RightEye", ".LeftEye", ".OuterLip", ".InnerLip"],
     "RightHand": [".RightHandPalm", ".RightHandFingerThumb", ".RightHandFingerIndex", ".RightHandFingerMiddle", ".RightHandFingerRing", ".RightHandFingerPinky"],
     "LeftHand": [".LeftHandPalm", ".LeftHandFingerThumb", ".LeftHandFingerIndex", ".LeftHandFingerMiddle", ".LeftHandFingerRing", ".LeftHandFingerPinky"],
-    "RightArm": ["RShoulder","RElbow","RWrist"],
-    "LeftArm": ["LShoulder","LElbow","LWrist"],
-    "RightLeg": ["RHip","RKnee","RAnkle"],
-    "LeftLeg": ["LHip","LKnee","LAnkle"],
-    ".Face": [".JawLine", ".RightEyebrow", ".LeftEyebrow", ".NoseBridge", ".NoseBottom", ".RightEye", ".LeftEye", ".OuterLip", ".InnerLip"],
+
+    ".Head": ["Nose","Neck","REye","LEye","REar","LEar"],
     ".Body": [".RightArm", ".LeftArm", ".RightLeg", ".LeftLeg"],
 
+    ".JawLine": ["Face_0","Face_1","Face_2","Face_3","Face_4","Face_5","Face_6","Face_7","Face_8","Face_9","Face_10","Face_11","Face_12","Face_13","Face_14","Face_15","Face_16"],
+    ".RightEyebrow": ["Face_17","Face_18","Face_19","Face_20","Face_21"],
+    ".LeftEyebrow": ["Face_22","Face_23","Face_24","Face_25","Face_26"],
+    ".NoseBridge": ["Face_27","Face_28","Face_29","Face_30"],
+    ".NoseBottom": ["Face_31","Face_32","Face_33","Face_34","Face_35"],
+    ".RightEye": ["Face_36","Face_37","Face_38","Face_39","Face_40","Face_41", "Face_69"],
+    ".LeftEye": ["Face_42","Face_43","Face_44","Face_45","Face_46","Face_47", "Face_68"],
+    ".OuterLip": ["Face_48","Face_49","Face_50","Face_51","Face_52","Face_53","Face_54","Face_55","Face_56","Face_57","Face_58","Face_59"],
+    ".InnerLip": ["Face_60","Face_61","Face_62","Face_63","Face_64","Face_65","Face_66","Face_67"],
+
+    ".RightArm": ["RShoulder","RElbow","RWrist"],
+    ".LeftArm": ["LShoulder","LElbow","LWrist"],
+    ".RightLeg": ["RHip","RKnee","RAnkle"],
+    ".LeftLeg": ["LHip","LKnee","LAnkle"],
 
     ".RightHandPalm": [
       "RHand_0"
@@ -216,10 +219,10 @@
     "canvas_width": 512,
     "canvas_height": 512,
     "includes": {
-      "BODY": 18,
+      "Pose": 18,
       "Face": 70,
-      "RHand": 21,
-      "LHand": 21
+      "RightHand": 21,
+      "LeftHand": 21
     }
   }
 }

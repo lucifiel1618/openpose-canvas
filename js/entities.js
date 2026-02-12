@@ -654,12 +654,6 @@ export class Drawable extends Entity {
                     this.keypointsDict[name]._setPosition(pos);
                     skeletonExists ||= true;
                 }
-                const kp = this.keypointsDict[name];
-                if (['Face', 'LHand', 'RHand'].some(partName => name.startsWith(partName + '_'))) {
-                    kp.setRadius(3);
-                    kp.setStrokeColor('gray');
-                    kp.setFillColor('gray');
-                }
             });
             if (skeletonExists) {
                 console.log(`Updated existing skeleton for "${this.name}"`);
@@ -670,16 +664,25 @@ export class Drawable extends Entity {
                     
                     skeletonData.limbs.forEach(limb => {
                         const limbObj = new Limb(limb.name, this);
+                        const isMinorRegions = ['Face', 'LeftHand', 'RightHand'].includes(limb.name);
                         this.limbs.push(limbObj);
                         
                         // Create bones for this limb
                         limb.bones.forEach(bone => {
                             const startKp = kp[bone.start];
                             const endKp = kp[bone.end];
+
+                            if (isMinorRegions) {
+                                for (const kp of [startKp, endKp]) {
+                                    kp.setRadius(3);
+                                    kp.setStrokeColor('gray');
+                                    kp.setFillColor('gray');
+                                }
+                            }
                             
                             if (startKp && endKp) {
                                 const boneEn = new Bone(bone.name, startKp, endKp, limbObj);
-                                if (['Face', 'LHand', 'RHand'].some(partName => bone.name.startsWith(partName + '_'))) {
+                                if (isMinorRegions) {
                                     boneEn.setStrokeColor('gray');
                                     boneEn.setStrokeWidth(1);
                                 }
