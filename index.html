@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OpenposeCanvas</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/color-palette.css">
 </head>
 <body>
     <div id="app">
@@ -134,7 +135,13 @@
             <div id="object-inspector">
                 <div id="inspector-handle" class="collapse-handle" title="Toggle Inspector"><span>›</span></div>
                 <div class="inspector-header">
-                    <h3>Object</h3>
+                    <div class="swatches-container">
+                        <div class="swatches">
+                            <div id="bg-swatch" class="background-swatch" title="Background Color"></div>
+                            <div id="fg-swatch" class="foreground-swatch" title="Foreground Color"></div>
+                        </div>
+                    </div>
+                    <input type="text" id="inspector-object-name" class="inspector-object-name" placeholder="Object">
                     <button id="deleteObjectBtn" class="delete-btn" title="Delete Object">
                         <img src="assets/icons/delete.svg" class="delete-icon" alt="" aria-hidden="true">
                     </button>
@@ -145,10 +152,6 @@
                 </div>
             </div>
             <template id="drawable-attribute-template">
-                <div class="attribute-row">
-                    <label>Name</label>
-                    <input type="text" class="name-input" data-attr="Name">
-                </div>
                 <div class="attribute-row">
                     <label>Layer</label>
                     <select class="layer-select" data-attr="Layer">
@@ -200,5 +203,6 @@
     <script src="https://unpkg.com/konva@9/konva.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gl-matrix@3.4.3/gl-matrix-min.js"></script>
     <script type="module" src="js/app.js"></script>
+    <script type="module" src="example/example.js"></script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 
 import { Person, DistortableImage, Drawable, Keypoint, Bone } from './entities.js';
+import { ColorPicker } from './color-palette.js';
 
 export class ObjectInspector {
     constructor(canvasManager) {
@@ -19,10 +20,73 @@ export class ObjectInspector {
         this.selectedParts = new Set();
         this.previewTimer = null;
         
+        this.colorPicker = new ColorPicker();
+        this.objectNameInput = document.getElementById('inspector-object-name');
+        this.fgSwatch = document.getElementById('fg-swatch');
+        this.bgSwatch = document.getElementById('bg-swatch');
+        
+        // Default colors
+        this.fgColor = '#ffffff';
+        this.bgColor = '#000000';
+        
         this.initPreviewStage();
         this.initDeleteButton();
+        this.initColorSwatches();
+        this.initObjectNameInput();
 
         this.highLightColor = '#00ff00';
+    }
+
+    initObjectNameInput() {
+        if (!this.objectNameInput) return;
+        
+        const updateName = (e) => {
+             if (this.currentDrawable) {
+                this.currentDrawable.name = e.target.value;
+            };
+        };
+
+        this.objectNameInput.addEventListener('input', updateName);
+    }
+
+    initColorSwatches() {
+        if (this.fgSwatch) {
+            this.updateColorSwatches({doBg: false});
+            
+            this.fgSwatch.addEventListener('click', () => {
+                this.colorPicker.open(this.fgSwatch, this.fgColor, (color) => {
+                    this.fgColor = color;
+                    this.updateColorSwatches({doBg: false});
+                    this.updatePreviewColors();
+                });
+            });
+        }
+        
+        if (this.bgSwatch) {
+            this.updateColorSwatches({doFg: false});
+            
+            this.bgSwatch.addEventListener('click', () => {
+                this.colorPicker.open(this.bgSwatch, this.bgColor, (color) => {
+                    this.bgColor = color;
+                    this.updateColorSwatches({doFg: false});
+                    this.updatePreviewColors();
+                });
+            });
+        }
+    }
+
+    updatePreviewColors() {
+        if (!this.previewPerson) return;
+
+        // Apply colors to the actual person object on the main canvas
+        if (this.currentDrawable) {
+             this.currentDrawable.setStrokeColor(this.bgColor);
+             this.currentDrawable.setFillColor(this.fgColor);
+             this.canvasManager.stage.draw();
+        }
+        
+        // Also update preview
+        this.buildPreview(this.currentDrawable); 
     }
 
     initDeleteButton() {
@@ -128,10 +192,20 @@ export class ObjectInspector {
             this.buildPreview(drawable);
             this.renderAttributes(drawable);
             
+            if (this.objectNameInput) {
+                this.objectNameInput.value = drawable.name;
+            }
+
             // Show delete button when an object is selected
             if (this.deleteBtn) {
                 this.deleteBtn.style.display = 'flex';
             }
+
+            // Update color swatches
+            this.fgColor = drawable.getFillColor() || '#ffffff';
+            this.bgColor = drawable.getStrokeColor() || '#000000';
+            this.updateColorSwatches();
+
         } else if (!this.setsEqual(this.selectedParts, selectedParts)) {
             // Only update selection if it actually changed
             this.selectedParts = new Set(selectedParts);
@@ -153,6 +227,11 @@ export class ObjectInspector {
         return true;
     }
 
+    updateColorSwatches({doFg = true, doBg = true}= {}) {
+        if (doFg) this.fgSwatch.style.backgroundColor = this.fgColor;
+        if (doBg) this.bgSwatch.style.backgroundColor = this.bgColor;
+    }
+
     clear() {
         // this.container.style.display = 'none'; // Or keep visible but empty
         if (this.previewTimer) {
@@ -168,6 +247,10 @@ export class ObjectInspector {
         this.currentDrawable = null;
         this.selectedParts.clear();
         if (this.attributesContainer) this.attributesContainer.innerHTML = '';
+        if (this.objectNameInput) this.objectNameInput.value = '';
+        this.fgColor = '#ffffff';
+        this.bgColor = '#000000';
+        this.updateColorSwatches();
         if (this.previewLayer) {
             this.previewLayer.destroyChildren(); 
             // Add background back
@@ -493,16 +576,6 @@ export class ObjectInspector {
         const template = document.getElementById('drawable-attribute-template');
         const clone = template.content.cloneNode(true);
         
-        // Name input
-        const nameInput = clone.querySelector('.name-input');
-        nameInput.value = drawable.name;
-        nameInput.addEventListener('change', (e) => {
-            drawable.name = e.target.value;
-        });
-        nameInput.addEventListener('input', (e) => {
-            drawable.name = e.target.value;
-        });
-        
         // X/Y inputs
         const xInput = clone.querySelector('.drawable-x-input');
         const yInput = clone.querySelector('.drawable-y-input');
@@ -576,6 +649,11 @@ export class ObjectInspector {
     }
 
     updateAttributeValues(drawable) {
+        // Update name
+        if (this.objectNameInput && document.activeElement !== this.objectNameInput) {
+             this.objectNameInput.value = drawable.name;
+        }
+
         // Update input values if they changed
         const pos = drawable.getPosition();
         if (pos) {

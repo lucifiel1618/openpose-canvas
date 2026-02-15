@@ -313,6 +313,69 @@ body {
     pointer-events: none;
 }
 
+.swatches-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-right: 0px;
+}
+
+.swatches {
+    position: relative;
+    width: 20px;
+    height: 20px;
+}
+
+.background-swatch {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: black;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+.foreground-swatch {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 12px;
+    height: 12px;
+    background: white;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.inspector-object-name {
+    flex: 1;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    padding: 5px;
+    margin: 0 0px;
+    background: transparent;
+    min-width: 0; /* allows text overflow */
+    transition: border-color 0.2s, background-color 0.2s;
+}
+
+.inspector-object-name:hover {
+    border-color: #ddd;
+    background-color: #fafafa;
+}
+
+.inspector-object-name:focus {
+    outline: none;
+    border-color: #007acc;
+    background-color: #fff;
+    box-shadow: 0 0 0 2px rgba(0, 122, 204, 0.2);
+}
+
 #object-preview-container {
     width: 100%;
     height: 200px;
