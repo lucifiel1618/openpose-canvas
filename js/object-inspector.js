@@ -8,7 +8,7 @@ export class ObjectInspector {
         this.canvasManager.setObjectInspector(this);
         this.container = document.getElementById('object-inspector');
         this.contentContainer = document.getElementById('object-inspector-content');
-        this.previewContainer = document.getElementById('object-preview-container');
+        this.previewCanvasContainer = document.getElementById('object-preview-canvas');
         this.attributesContainer = document.getElementById('object-attributes-container');
         this.deleteBtn = document.getElementById('deleteObjectBtn');
         
@@ -25,6 +25,17 @@ export class ObjectInspector {
         this.fgSwatch = document.getElementById('fg-swatch');
         this.bgSwatch = document.getElementById('bg-swatch');
         
+        // Setup button and dialog
+        this.setupBtn = document.getElementById('object-preview-setup-btn');
+        this.setupDialogOverlay = document.getElementById('setup-dialog-overlay');
+        this.setupDialog = document.getElementById('setup-dialog');
+        this.setupDialogClose = document.querySelector('.setup-dialog-close');
+        this.setupLeftHandCheckbox = document.getElementById('setup-left-hand');
+        this.setupRightHandCheckbox = document.getElementById('setup-right-hand');
+        this.setupFaceCheckbox = document.getElementById('setup-face');
+        this.setupPoseCheckbox = document.getElementById('setup-pose');
+        this.setupDialogOptions = document.querySelector('.setup-dialog-options');
+        
         // Default colors
         this.fgColor = '#ffffff';
         this.bgColor = '#000000';
@@ -33,6 +44,7 @@ export class ObjectInspector {
         this.initDeleteButton();
         this.initColorSwatches();
         this.initObjectNameInput();
+        this.initSetupButton();
 
         this.highLightColor = '#00ff00';
     }
@@ -47,6 +59,89 @@ export class ObjectInspector {
         };
 
         this.objectNameInput.addEventListener('input', updateName);
+    }
+
+    initSetupButton() {
+        if (!this.setupBtn || !this.setupDialogOverlay) return;
+        
+        // Open dialog when button is clicked
+        this.setupBtn.addEventListener('click', () => {
+            this.openSetupDialog();
+        });
+        
+        // Close dialog when close button is clicked
+        if (this.setupDialogClose) {
+            this.setupDialogClose.addEventListener('click', () => {
+                this.closeSetupDialog();
+            });
+        }
+        
+        // Close dialog when clicking outside of it
+        this.setupDialogOverlay.addEventListener('click', (e) => {
+            if (e.target === this.setupDialogOverlay) {
+                this.closeSetupDialog();
+            }
+        });
+        
+        // Hook up checkbox event handlers
+        if (this.setupLeftHandCheckbox) {
+            this.setupLeftHandCheckbox.addEventListener('change', (e) => {
+                e.target.closest('.setup-checkbox-label')?.classList.remove('setup-checkbox-placeholder');
+                this.onPartToggle('LeftHand', e.target.checked);
+            });
+        }
+        
+        if (this.setupRightHandCheckbox) {
+            this.setupRightHandCheckbox.addEventListener('change', (e) => {
+                e.target.closest('.setup-checkbox-label')?.classList.remove('setup-checkbox-placeholder');
+                this.onPartToggle('RightHand', e.target.checked);
+            });
+        }
+        
+        if (this.setupFaceCheckbox) {
+            this.setupFaceCheckbox.addEventListener('change', (e) => {
+                e.target.closest('.setup-checkbox-label')?.classList.remove('setup-checkbox-placeholder');
+                this.onPartToggle('Face', e.target.checked);
+            });
+        }
+        
+        if (this.setupPoseCheckbox) {
+            this.setupPoseCheckbox.addEventListener('change', (e) => {
+                e.target.closest('.setup-checkbox-label')?.classList.remove('setup-checkbox-placeholder');
+                this.onPartToggle('Pose', e.target.checked);
+            });
+        }
+    }
+
+    openSetupDialog() {
+        if (this.setupDialogOverlay) {
+            this.setupDialogOverlay.classList.remove('hidden');
+            this.setupBtn.classList.add('active');
+        }
+    }
+
+    closeSetupDialog() {
+        if (this.setupDialogOverlay) {
+            this.setupDialogOverlay.classList.add('hidden');
+            this.setupBtn.classList.remove('active');
+        }
+    }
+
+    // Template functions for checkbox handlers - to be implemented
+    onPartToggle(part, checked) {
+        this.setupLimbs(
+            this.previewPerson,
+            (limb) => limb.name === part,
+            {
+                bonefn: (bone, isMatch) => {
+                    if (isMatch) bone.setVisible(checked);
+                },
+                kpfn: (kp, isMatch) => {
+                    if (isMatch) kp.setVisible(checked);
+                }
+            }
+        );
+        this.fitPreviewToObject();
     }
 
     initColorSwatches() {
@@ -113,12 +208,12 @@ export class ObjectInspector {
     }
 
     initPreviewStage() {
-        if (!this.previewContainer) return;
+        if (!this.previewCanvasContainer) return;
         
         // Create a small stage for preview
         this.previewStage = new Konva.Stage({
-            container: 'object-preview-container',
-            width: this.previewContainer.clientWidth || 200,
+            container: this.previewCanvasContainer,
+            width: this.previewCanvasContainer.clientWidth || 200,
             height: 200
         });
 
@@ -261,6 +356,35 @@ export class ObjectInspector {
             // }));
             this.previewLayer.draw();
         }
+
+        // Reset setup checkboxes to placeholder state
+        if (this.setupLeftHandCheckbox) {
+            this.setupLeftHandCheckbox.checked = true;
+            this.setupLeftHandCheckbox.closest('.setup-checkbox-label')?.classList.add('setup-checkbox-placeholder');
+        }
+        
+        if (this.setupRightHandCheckbox) {
+            this.setupRightHandCheckbox.checked = true;
+            this.setupRightHandCheckbox.closest('.setup-checkbox-label')?.classList.add('setup-checkbox-placeholder');
+        }
+        
+        if (this.setupFaceCheckbox) {
+            this.setupFaceCheckbox.checked = true;
+            this.setupFaceCheckbox.closest('.setup-checkbox-label')?.classList.add('setup-checkbox-placeholder');
+        }
+        
+        if (this.setupPoseCheckbox) {
+            this.setupPoseCheckbox.checked = true;
+            this.setupPoseCheckbox.closest('.setup-checkbox-label')?.classList.add('setup-checkbox-placeholder');
+        }
+    }
+
+    setupLimbs(drawable, limbFilterfn, {kpfn=null, bonefn=null} = {}) {
+        for (const limb of drawable.limbs) {
+            const IsMatch = limbFilterfn(limb);
+            if (kpfn !== null) limb.getAllKeypoints().forEach(kp => {kpfn(kp, IsMatch);});
+            if (bonefn !== null) limb.children.forEach(bone => {bonefn(bone, IsMatch);});
+        }
     }
 
     async buildPreview(drawable) {
@@ -271,6 +395,8 @@ export class ObjectInspector {
              clearTimeout(this.previewTimer);
              this.previewTimer = null;
         }
+
+
         
         // Clear previous content and recreate background
         this.previewLayer.destroyChildren();
@@ -297,28 +423,30 @@ export class ObjectInspector {
             // We can cheat and just wait a bit or hook into the promise if exposed.
             // buildSkeleton is async.
 
-            for (const limb of this.previewPerson.limbs) {
-                const isMinorRegions = ['Face', 'LeftHand', 'RightHand'].includes(limb.name);
-                limb.getAllKeypoints().forEach(kp => {
-                    if (isMinorRegions) {
-                        kp.setRadius(7);
-                        kp.setStrokeColor('gray');
-                        kp.setFillColor('gray');
-                    } else {
-                        kp.setRadius(21);
-                        kp.setStrokeColor('black');
+            this.setupLimbs(
+                this.previewPerson,
+                (limb) => ['Face', 'LeftHand', 'RightHand'].includes(limb.name),
+                {
+                    kpfn: (kp, isMinor) => {
+                        if (isMinor) {
+                            kp.setRadius(7);
+                            kp.setStrokeColor('gray');
+                            kp.setFillColor('gray');
+                        } else {
+                            kp.setRadius(21);
+                            kp.setStrokeColor('black');
+                        }
+                    },
+                    bonefn: (bone, isMinor) => {
+                        if (isMinor) {
+                            bone.setStrokeWidth(3);
+                            bone.setStrokeColor('gray');
+                        } else {
+                            bone.setStrokeColor('black');
+                        }
                     }
-
-                });
-                limb.children.forEach(bone => {
-                    if (isMinorRegions) {
-                        bone.setStrokeWidth(3);
-                        bone.setStrokeColor('gray');
-                    } else {
-                        bone.setStrokeColor('black');
-                    }
-                });
-            }
+                }
+            );
             
             this.previewTimer = setTimeout(() => {
                 if (!this.previewPerson) return;
@@ -445,6 +573,7 @@ export class ObjectInspector {
         let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
         children.forEach((node, i) => {
             if (i === 0) return; // Skip background
+            if (!node.isVisible()) return; // Skip invisible nodes
             const rect = node.getClientRect();
             if (rect.width > 0 && rect.height > 0) {
                 minX = Math.min(minX, rect.x);

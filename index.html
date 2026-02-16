@@ -147,7 +147,12 @@
                     </button>
                 </div>
                 <div id="object-inspector-content">
-                    <div id="object-preview-container"></div>
+                    <div id="object-preview-container">
+                        <div id="object-preview-canvas"></div>
+                        <button id="object-preview-setup-btn" class="object-preview-setup-btn" title="Setup Display Options">
+                            <img src="assets/icons/setup.svg" class="setup-icon" alt="Setup">
+                        </button>
+                    </div>
                     <div id="object-attributes-container"></div>
                 </div>
             </div>
@@ -200,6 +205,35 @@
 
         </div>
     </div>
+    
+    <!-- Setup Dialog -->
+    <div id="setup-dialog-overlay" class="setup-dialog-overlay hidden">
+        <div id="setup-dialog" class="setup-dialog">
+            <button class="setup-dialog-close" title="Close">×</button>
+            <div class="setup-dialog-content">
+                <div class="setup-dialog-title">Show:</div>
+                <div class="setup-dialog-options">
+                    <label class="setup-checkbox-label setup-checkbox-placeholder">
+                        <input type="checkbox" id="setup-left-hand" class="setup-checkbox" checked>
+                        <span>Left Hand</span>
+                    </label>
+                    <label class="setup-checkbox-label setup-checkbox-placeholder">
+                        <input type="checkbox" id="setup-right-hand" class="setup-checkbox" checked>
+                        <span>Right Hand</span>
+                    </label>
+                    <label class="setup-checkbox-label setup-checkbox-placeholder">
+                        <input type="checkbox" id="setup-face" class="setup-checkbox" checked>
+                        <span>Face</span>
+                    </label>
+                    <label class="setup-checkbox-label setup-checkbox-placeholder">
+                        <input type="checkbox" id="setup-pose" class="setup-checkbox" checked>
+                        <span>Pose</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <script src="https://unpkg.com/konva@9/konva.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gl-matrix@3.4.3/gl-matrix-min.js"></script>
     <script type="module" src="js/app.js"></script>

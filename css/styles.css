@@ -385,6 +385,153 @@ body {
     position: relative;
 }
 
+/* Object Preview Setup Button */
+.object-preview-setup-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+    opacity: 0.6;
+    z-index: 10;
+}
+
+.object-preview-setup-btn:hover {
+    opacity: 1;
+    background: #f3f4f6;
+    border-color: #9ca3af;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.object-preview-setup-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.object-preview-setup-btn.active {
+    opacity: 1;
+    background: #3b82f6;
+    border-color: #2563eb;
+}
+
+.object-preview-setup-btn.active:hover {
+    background: #2563eb;
+    border-color: #1d4ed8;
+}
+
+.setup-icon {
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+    filter: invert(0);
+}
+
+.object-preview-setup-btn.active .setup-icon {
+    filter: invert(1);
+}
+
+/* Setup Dialog */
+.setup-dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.setup-dialog-overlay.hidden {
+    display: none;
+}
+
+.setup-dialog {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    padding: 24px;
+    min-width: 320px;
+    position: relative;
+}
+
+.setup-dialog-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #6b7280;
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.15s ease;
+}
+
+.setup-dialog-close:hover {
+    background: #f3f4f6;
+    color: #111827;
+}
+
+.setup-dialog-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 16px;
+}
+
+.setup-dialog-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.setup-checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    transition: background 0.15s ease;
+}
+
+.setup-checkbox-label:hover {
+    background: #f9fafb;
+}
+
+.setup-checkbox {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.setup-checkbox-label span {
+    font-size: 14px;
+    color: #374151;
+    user-select: none;
+}
+
+.setup-checkbox-label.setup-checkbox-placeholder .setup-checkbox {
+    opacity: 0.5;
+}
+
 .attribute-row {
     display: flex;
     align-items: center;
