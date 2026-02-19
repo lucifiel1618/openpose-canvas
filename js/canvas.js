@@ -1,5 +1,5 @@
 import {Point, Line} from './shapes.js';
-import {Person, PoseLayer, Scene} from './entities.js';
+import {DistortableImage, Person, PoseLayer, Scene} from './entities.js';
 import { dataAccessManager } from './openpose-probe.js';
 
 const MAX_ZOOM_SCALE = 10;
@@ -848,6 +848,10 @@ export class CanvasManager {
         this.pageLayer.findOne('.page-bg')?.fill(enabled ? cnetConfig.background_color : 'white');
         
         for (const drawable of this.scene.drawables) {
+            if (drawable instanceof DistortableImage) {
+                drawable.setVisible(!enabled);
+                continue;
+            }
             for (const limb of drawable.limbs) {
                 limb.getAllKeypoints().forEach(kp => {
                     if (!kp.shape) return;

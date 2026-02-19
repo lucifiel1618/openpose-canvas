@@ -190,9 +190,13 @@ export class ToolbarManager {
      */
     async exportPoseData() {
         try {
-            // Show format selection dialog
             const format = await this.showExportFormatDialog();
-            if (!format) return; // User cancelled
+            if (!format) return;
+
+            if (format === 'PNG') {
+                await this.exportAsPng();
+                return;
+            }
 
             // Collect all pose data from all layers
             const allPoseData = await this.collectAllPoseData(format);
@@ -278,7 +282,7 @@ export class ToolbarManager {
                     <option value="BODY18">ControlNet Standard</option>
                     <option value="BODY18COMFYUI">ComfyUI Enhanced</option>
                     <option value="BODY25">Body-25 Full</option>
-
+                    <option value="PNG">PNG Image</option>
                 </select>
                 <div style="display: flex; gap: 10px; justify-content: flex-end;">
                     <button id="cancelBtn" style="padding: 8px 16px; border: 1px solid #ccc; background: white; border-radius: 4px; cursor: pointer;">Cancel</button>
@@ -341,11 +345,17 @@ export class ToolbarManager {
                 max-width: 400px;
             `;
 
-            const defaultFileName = `openpose-${format.toLowerCase()}-${Date.now()}.json`;
+            const isPng = format === 'PNG';
+            const extension = isPng ? 'png' : 'json';
+            const defaultFileName = isPng 
+                ? `openpose-${Date.now()}.png`
+                : `openpose-${format.toLowerCase()}-${Date.now()}.json`;
+            const title = isPng ? 'Save PNG' : 'Save File';
+            const hint = isPng ? 'PNG Image' : `${format} Data`;
 
             dialog.innerHTML = `
-                <h3 style="margin-top: 0; color: #333;">Save File</h3>
-                <p style="color: #666; margin-bottom: 20px;">Enter filename:</p>
+                <h3 style="margin-top: 0; color: #333;">${title}</h3>
+                <p style="color: #666; margin-bottom: 20px;">Enter filename (${hint}):</p>
                 <input type="text" id="fileNameInput" value="${defaultFileName}" style="width: 100%; padding: 8px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 4px;">
                 <div style="display: flex; gap: 10px; justify-content: flex-end;">
                     <button id="cancelBtn" style="padding: 8px 16px; border: 1px solid #ccc; background: white; border-radius: 4px; cursor: pointer;">Cancel</button>
@@ -367,8 +377,8 @@ export class ToolbarManager {
 
             saveBtn.onclick = () => {
                 const fileName = fileNameInput.value.trim() || defaultFileName;
-                if (!fileName.endsWith('.json')) {
-                    fileNameInput.value = fileName + '.json';
+                if (!fileName.endsWith(`.${extension}`)) {
+                    fileNameInput.value = fileName + `.${extension}`;
                 }
                 document.body.removeChild(modal);
                 resolve(fileNameInput.value);
@@ -419,6 +429,44 @@ export class ToolbarManager {
         
         // Clean up
         URL.revokeObjectURL(url);
+    }
+
+    async exportAsPng() {
+        const fileName = await this.showSaveDialog('PNG');
+        if (!fileName) return;
+
+        const pageSize = this.canvasManager.getPageSize();
+        const stage = this.canvasManager.stage;
+
+        const oldScale = stage.scaleX();
+        const oldX = stage.x();
+        const oldY = stage.y();
+
+        stage.scale({ x: 1, y: 1 });
+        stage.position({ x: 0, y: 0 });
+        stage.batchDraw();
+
+        const dataURL = stage.toDataURL({
+            pixelRatio: 1,
+            x: 0,
+            y: 0,
+            width: pageSize.width,
+            height: pageSize.height,
+            mimeType: 'image/png'
+        });
+
+        stage.scale({ x: oldScale, y: oldScale });
+        stage.position({ x: oldX, y: oldY });
+        stage.batchDraw();
+
+        const a = document.createElement('a');
+        a.href = dataURL;
+        a.download = fileName;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        console.log(`Exported PNG to ${fileName}`);
     }
 
     /**

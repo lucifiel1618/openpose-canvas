@@ -19,7 +19,7 @@ export class Entity {
         this.uuid = crypto.randomUUID();
         /** @type {Entity|null} */ this.parent = parent;
         this._stateChanged = true;
-        this._visible = true;
+        this._visible = null;
         /** @type {Entity[]} */ this.children = [];
         /** @type {string|null} */ this._strokeColor = null;
         /** @type {string|null} */ this._fillColor = null;
@@ -84,11 +84,14 @@ export class Entity {
     }
     
     getVisible(visible=null) {
-        if (visible===null) {
+        if (visible === null) {
             visible = this._visible;
         }
-        if (visible===null && this.parent !== null) {
+        if (visible === null && this.parent !== null) {
             visible = this.parent.getVisible();
+        }
+        if (visible === null) {
+            visible = true;
         }
         return visible;
     }
@@ -137,6 +140,7 @@ export class Entity {
     
     updateVisibility() {
         // Override in subclasses that create Konva shapes
+        this.children.forEach(child => child.updateVisibility());
     }
     
     getAllKeypoints() {
@@ -260,7 +264,7 @@ export class Entity {
             this.shape.strokeWidth(w);
             this.shape.baseStrokeWidth = w;
         }
-        this.children.forEach(ch => ch.getStrokeWidth(null));
+        this.children.forEach(ch => ch.setStrokeWidth(null));
     }
     
     destroy() {
@@ -316,7 +320,7 @@ export class Keypoint extends Entity {
             this.shape.radius(radius);
             this.shape.baseRadius = radius;
         }
-    } 
+    }
     
     render(layer) {
         if (!this.getVisible() || !this._position) {
@@ -540,7 +544,8 @@ export class Bone extends Entity {
         if (this.shape) {
             const startPos = this.start.getPosition();
             const endPos = this.end.getPosition();
-            this.shape.visible(this.getVisible() && startPos !== null && endPos !== null);
+            const isVisible = this.getVisible() && startPos !== null && endPos !== null;
+            this.shape.visible(isVisible);
         }
     }
     
@@ -624,6 +629,7 @@ export class Drawable extends Entity {
         /** @type {Limb[]} */
         this.limbs = [];
         this._alpha = 1.0;
+        this._visible = true;
         this.format = format;
         this.originalBBox = {x: cx, y: cy, width, height}
     }
@@ -943,6 +949,13 @@ export class DistortableImage extends Drawable {
         }
         
         return shapes;
+    }
+
+    updateVisibility() {
+        super.updateVisibility();
+        if (this.imageShape) {
+            this.imageShape.visible(this.getVisible());
+        }
     }
     
     getPosition() {
