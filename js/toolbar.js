@@ -31,6 +31,7 @@ export class ToolbarManager {
         const zoomDrawingBtn = document.getElementById('zoomDrawingBtn');
         const fitToPageBtn = document.getElementById('fitToPageBtn');
         const undoBtn = document.getElementById('undoBtn');
+        const wysiwygBtn = document.getElementById('wysiwygBtn');
         const redoBtn = document.getElementById('redoBtn');
         const exportBtn = document.getElementById('exportBtn');
         const pageWidthInput = document.getElementById('pageWidth');
@@ -55,6 +56,7 @@ export class ToolbarManager {
         zoomDrawingBtn?.addEventListener('click', () => this.canvasManager.zoomToDrawing());
         fitToPageBtn?.addEventListener('click', () => this.canvasManager.fitToPage());
         undoBtn?.addEventListener('click', () => this.canvasManager.undo());
+        wysiwygBtn?.addEventListener('click', () => this.toggleWYSIWYG());
         redoBtn?.addEventListener('click', () => this.canvasManager.redo());
         exportBtn?.addEventListener('click', () => this.exportPoseData());
 
@@ -75,6 +77,19 @@ export class ToolbarManager {
         
         // Initialize undo/redo state
         this.updateUndoRedoState(false, false);
+    }
+
+    toggleWYSIWYG() {
+        const wysiwygBtn = document.getElementById('wysiwygBtn');
+        const isEnabled = this.canvasManager.viewMode === 'WYSIWYG';
+        
+        this.canvasManager.toggleWYSIWYG(!isEnabled);
+        
+        if (this.canvasManager.viewMode === 'WYSIWYG') {
+            wysiwygBtn.classList.add('active');
+        } else {
+            wysiwygBtn.classList.remove('active');
+        }
     }
 
     togglePanMode() {

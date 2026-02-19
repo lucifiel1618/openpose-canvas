@@ -379,14 +379,6 @@ export class ObjectInspector {
         }
     }
 
-    setupLimbs(drawable, limbFilterfn, {kpfn=null, bonefn=null} = {}) {
-        for (const limb of drawable.limbs) {
-            const IsMatch = limbFilterfn(limb);
-            if (kpfn !== null) limb.getAllKeypoints().forEach(kp => {kpfn(kp, IsMatch);});
-            if (bonefn !== null) limb.children.forEach(bone => {bonefn(bone, IsMatch);});
-        }
-    }
-
     async buildPreview(drawable) {
         if (!this.previewLayer) return;
         
@@ -423,7 +415,7 @@ export class ObjectInspector {
             // We can cheat and just wait a bit or hook into the promise if exposed.
             // buildSkeleton is async.
 
-            this.setupLimbs(
+            this.canvasManager.setupDrawableParts(
                 this.previewPerson,
                 (limb) => ['Face', 'LeftHand', 'RightHand'].includes(limb.name),
                 {

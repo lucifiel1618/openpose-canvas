@@ -1,5 +1,6 @@
 import {Point, Line} from './shapes.js';
 import {Person, PoseLayer, Scene} from './entities.js';
+import { dataAccessManager } from './openpose-probe.js';
 
 const MAX_ZOOM_SCALE = 10;
 const MIN_ZOOM_SCALE = 0.1;
@@ -22,6 +23,8 @@ export class CanvasManager {
         this.currentLayerIndex = 0;
         this.pageLayer = null;
         this.transformLayer = null;
+        this.formatId = 'BODY18';
+        this.viewMode = 'normal'; // or 'WYSIWYG'
         
         this.stageScaleFactor = 1;
 
@@ -828,4 +831,62 @@ export class CanvasManager {
             this.updateZoomInput();
         });
     }
+
+    setupDrawableParts(drawable, limbFilterfn, {kpfn=null, bonefn=null} = {}) {
+        for (const limb of drawable.limbs) {
+            const IsMatch = limbFilterfn(limb);
+            if (kpfn !== null) limb.getAllKeypoints().forEach(kp => {kpfn(kp, IsMatch);});
+            if (bonefn !== null) limb.children.forEach(bone => {bonefn(bone, IsMatch);});
+        }
+    }
+
+    async toggleWYSIWYG(enabled=null) {
+        enabled = enabled ?? this.viewMode === 'WYSIWYG';
+        this.viewMode = enabled ? 'WYSIWYG' : 'normal';
+        const cnetConfig = await dataAccessManager.loadControlnetConfig(this.formatId);
+        this.scene.lockStateChange();
+        this.pageLayer.findOne('.page-bg')?.fill(enabled ? cnetConfig.background_color : 'white');
+        
+        for (const drawable of this.scene.drawables) {
+            for (const limb of drawable.limbs) {
+                limb.getAllKeypoints().forEach(kp => {
+                    if (!kp.shape) return;
+                    if (enabled) {
+                        const color = cnetConfig.keypoint_colors[kp.name];
+                        if (color) kp.shape.fill(color);
+                        kp.shape.radius(cnetConfig.keypoint_radius);
+                        kp.shape.baseRadius = cnetConfig.keypoint_radius;
+                        kp.shape.strokeWidth(cnetConfig.keypoint_strokewidth);
+                        kp.shape.baseStrokeWidth = cnetConfig.keypoint_strokewidth;
+                    } else {
+                        kp.shape.fill(kp.getFillColor());
+                        kp.shape.radius(kp._radius);
+                        kp.shape.baseRadius = kp._radius;
+                        kp.shape.opacity(kp.getAlpha());
+                        kp.shape.strokeWidth(kp.getStrokeWidth());
+                        kp.shape.baseStrokeWidth = kp.getStrokeWidth();
+                    }
+                });
+                
+                for (const bone of limb.children) {
+                    if (!bone.shape) continue;
+                    if (enabled) {
+                        const color = cnetConfig.bone_colors[bone.name];
+                        if (color) bone.shape.stroke(color);
+                        bone.shape.strokeWidth(cnetConfig.bone_strokewidth);
+                        bone.shape.baseStrokeWidth = cnetConfig.bone_strokewidth;
+                    } else {
+                        bone.shape.stroke(bone.getStrokeColor());
+                        bone.shape.strokeWidth(bone.getStrokeWidth());
+                        bone.shape.baseStrokeWidth = bone.getStrokeWidth();
+                        bone.shape.opacity(bone.getAlpha());
+                    }
+                }
+            }
+        }
+        
+        this.stage.batchDraw();
+        this.scene.unlockStateChange();
+    }
+
 }

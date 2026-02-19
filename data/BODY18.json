@@ -1,126 +1,126 @@
 {
   "format": "BODY18",
-
+  
   "vertices": {
     "Nose": [0, -223],
     "Neck": [0, -80],
-
+    
     "RShoulder": [-125, -91],
     "RElbow": [-211, 4],
     "RWrist": [-257, 90],
-
+    
     "LShoulder": [125, -91],
     "LElbow": [211, 4],
     "LWrist": [257, 90],
-
+    
     "RHip": [-50, 151],
     "RKnee": [-130, 312],
     "RAnkle": [-224, 487],
-
+    
     "LHip": [50, 151],
     "LKnee": [130, 312],
     "LAnkle": [224, 487],
-
+    
     "REye": [-48, -260],
     "LEye": [48, -260],
     "REar": [-114, -234],
     "LEar": [114, -234],
-
+    
     "Face_0": [-98, -260], "Face_1": [-98, -234], "Face_2": [-98, -208], "Face_3": [-92, -187],
     "Face_4": [-81, -166], "Face_5": [-65, -150], "Face_6": [-54, -140], "Face_7": [-32, -129],
     "Face_8": [0, -124], "Face_9": [32, -129], "Face_10": [54, -140], "Face_11": [65, -150],
     "Face_12": [81, -166], "Face_13": [92, -187], "Face_14": [98, -208], "Face_15": [98, -234],
     "Face_16": [98, -260],
-
+    
     "Face_17": [-81, -281], "Face_18": [-65, -286], "Face_19": [-54, -286], "Face_20": [-37, -286], "Face_21": [-21, -281],
     "Face_22": [21, -281], "Face_23": [37, -286], "Face_24": [54, -286], "Face_25": [65, -286], "Face_26": [81, -281],
-
+    
     "Face_27": [0, -255], "Face_28": [0, -244], "Face_29": [0, -234], "Face_30": [0, -218],
     "Face_31": [-21, -208], "Face_32": [-10, -203], "Face_33": [0, -201], "Face_34": [10, -203], "Face_35": [21, -208],
-
+    
     "Face_36": [-54, -255], "Face_37": [-43, -260], "Face_38": [-32, -260], "Face_39": [-26, -255], "Face_40": [-37, -255], "Face_41": [-48, -255],
     "Face_42": [26, -255], "Face_43": [32, -260], "Face_44": [43, -260], "Face_45": [54, -255], "Face_46": [48, -255], "Face_47": [37, -255],
-
+    
     "Face_48": [-37, -176], "Face_49": [-26, -182], "Face_50": [-14, -184], "Face_51": [0, -182], "Face_52": [14, -184], "Face_53": [26, -182],
     "Face_54": [37, -176], "Face_55": [26, -166], "Face_56": [14, -163], "Face_57": [0, -162], "Face_58": [-14, -163], "Face_59": [-26, -166],
-
+    
     "Face_60": [-37, -176], "Face_61": [-21, -176], "Face_62": [0, -176], "Face_63": [21, -176], "Face_64": [37, -176],
     "Face_65": [21, -171], "Face_66": [0, -171], "Face_67": [-21, -171],
-
+    
     "Face_68": [-48, -260], "Face_69": [48, -260],
-
+    
     "LHand_0": [257, 90], "LHand_1": [277, 100], "LHand_2": [292, 130], "LHand_3": [297, 155], "LHand_4": [299, 180],
     "LHand_5": [232, 160], "LHand_6": [229, 210], "LHand_7": [227, 245], "LHand_8": [226, 270],
     "LHand_9": [249, 160], "LHand_10": [247, 215], "LHand_11": [246, 253], "LHand_12": [245, 280],
     "LHand_13": [266, 160], "LHand_14": [268, 212], "LHand_15": [269, 247], "LHand_16": [270, 272],
     "LHand_17": [282, 155], "LHand_18": [285, 195], "LHand_19": [287, 223], "LHand_20": [288, 243],
-
+    
     "RHand_0": [-257, 90], "RHand_1": [-277, 100], "RHand_2": [-292, 130], "RHand_3": [-297, 155], "RHand_4": [-299, 180],
     "RHand_5": [-232, 160], "RHand_6": [-229, 210], "RHand_7": [-227, 245], "RHand_8": [-226, 270],
     "RHand_9": [-249, 160], "RHand_10": [-247, 215], "RHand_11": [-246, 253], "RHand_12": [-245, 280],
     "RHand_13": [-266, 160], "RHand_14": [-268, 212], "RHand_15": [-269, 247], "RHand_16": [-270, 272],
     "RHand_17": [-282, 155], "RHand_18": [-285, 195], "RHand_19": [-287, 223], "RHand_20": [-288, 243]
   },
-
+  
   "edges": [
     ["Nose","Neck"], ["Nose","REye"], ["REye","REar"], ["Nose","LEye"], ["LEye","LEar"],
     ["Neck","RShoulder"], ["RShoulder","RElbow"], ["RElbow","RWrist"],
     ["Neck","LShoulder"], ["LShoulder","LElbow"], ["LElbow","LWrist"],
     ["Neck","RHip"], ["RHip","RKnee"], ["RKnee","RAnkle"],
     ["Neck","LHip"], ["LHip","LKnee"], ["LKnee","LAnkle"],
-
+    
     ["Face_0","Face_1"], ["Face_1","Face_2"], ["Face_2","Face_3"], ["Face_3","Face_4"],
     ["Face_4","Face_5"], ["Face_5","Face_6"], ["Face_6","Face_7"], ["Face_7","Face_8"],
     ["Face_8","Face_9"], ["Face_9","Face_10"], ["Face_10","Face_11"], ["Face_11","Face_12"],
     ["Face_12","Face_13"], ["Face_13","Face_14"], ["Face_14","Face_15"], ["Face_15","Face_16"],
-
+    
     ["Face_17","Face_18"], ["Face_18","Face_19"], ["Face_19","Face_20"], ["Face_20","Face_21"],
     ["Face_22","Face_23"], ["Face_23","Face_24"], ["Face_24","Face_25"], ["Face_25","Face_26"],
-
+    
     ["Face_27","Face_28"], ["Face_28","Face_29"], ["Face_29","Face_30"],
     ["Face_31","Face_32"], ["Face_32","Face_33"], ["Face_33","Face_34"], ["Face_34","Face_35"],
-
+    
     ["Face_36","Face_37"], ["Face_37","Face_38"], ["Face_38","Face_39"], ["Face_39","Face_40"],
     ["Face_40","Face_41"], ["Face_41","Face_36"],
-
+    
     ["Face_42","Face_43"], ["Face_43","Face_44"], ["Face_44","Face_45"], ["Face_45","Face_46"],
     ["Face_46","Face_47"], ["Face_47","Face_42"],
-
+    
     ["Face_48","Face_49"], ["Face_49","Face_50"], ["Face_50","Face_51"], ["Face_51","Face_52"],
     ["Face_52","Face_53"], ["Face_53","Face_54"], ["Face_54","Face_55"], ["Face_55","Face_56"],
     ["Face_56","Face_57"], ["Face_57","Face_58"], ["Face_58","Face_59"], ["Face_59","Face_48"],
-
+    
     ["Face_60","Face_61"], ["Face_61","Face_62"], ["Face_62","Face_63"], ["Face_63","Face_64"],
     ["Face_64","Face_65"], ["Face_65","Face_66"], ["Face_66","Face_67"], ["Face_67","Face_60"],
-
+    
     ["Face_36","Face_68"], ["Face_42","Face_69"],
-
+    
     ["RWrist", "RHand_0"],
-
+    
     ["RHand_0","RHand_1"], ["RHand_1","RHand_2"], ["RHand_2","RHand_3"], ["RHand_3","RHand_4"],
     ["RHand_0","RHand_5"], ["RHand_5","RHand_6"], ["RHand_6","RHand_7"], ["RHand_7","RHand_8"],
     ["RHand_0","RHand_9"], ["RHand_9","RHand_10"], ["RHand_10","RHand_11"], ["RHand_11","RHand_12"],
     ["RHand_0","RHand_13"], ["RHand_13","RHand_14"], ["RHand_14","RHand_15"], ["RHand_15","RHand_16"],
     ["RHand_0","RHand_17"], ["RHand_17","RHand_18"], ["RHand_18","RHand_19"], ["RHand_19","RHand_20"],
-
+    
     ["LWrist", "LHand_0"],
-
+    
     ["LHand_0","LHand_1"], ["LHand_1","LHand_2"], ["LHand_2","LHand_3"], ["LHand_3","LHand_4"],
     ["LHand_0","LHand_5"], ["LHand_5","LHand_6"], ["LHand_6","LHand_7"], ["LHand_7","LHand_8"],
     ["LHand_0","LHand_9"], ["LHand_9","LHand_10"], ["LHand_10","LHand_11"], ["LHand_11","LHand_12"],
     ["LHand_0","LHand_13"], ["LHand_13","LHand_14"], ["LHand_14","LHand_15"], ["LHand_15","LHand_16"],
     ["LHand_0","LHand_17"], ["LHand_17","LHand_18"], ["LHand_18","LHand_19"], ["LHand_19","LHand_20"]
   ],
-
+  
   "limbs": {
     "Pose": [".Body", ".Head"],
     "Face": [".JawLine", ".RightEyebrow", ".LeftEyebrow", ".NoseBridge", ".NoseBottom", ".RightEye", ".LeftEye", ".OuterLip", ".InnerLip"],
     "RightHand": [".RightHandPalm", ".RightHandFingerThumb", ".RightHandFingerIndex", ".RightHandFingerMiddle", ".RightHandFingerRing", ".RightHandFingerPinky"],
     "LeftHand": [".LeftHandPalm", ".LeftHandFingerThumb", ".LeftHandFingerIndex", ".LeftHandFingerMiddle", ".LeftHandFingerRing", ".LeftHandFingerPinky"],
-
+    
     ".Head": ["Nose","Neck","REye","LEye","REar","LEar"],
     ".Body": [".RightArm", ".LeftArm", ".RightLeg", ".LeftLeg"],
-
+    
     ".JawLine": ["Face_0","Face_1","Face_2","Face_3","Face_4","Face_5","Face_6","Face_7","Face_8","Face_9","Face_10","Face_11","Face_12","Face_13","Face_14","Face_15","Face_16"],
     ".RightEyebrow": ["Face_17","Face_18","Face_19","Face_20","Face_21"],
     ".LeftEyebrow": ["Face_22","Face_23","Face_24","Face_25","Face_26"],
@@ -130,83 +130,83 @@
     ".LeftEye": ["Face_42","Face_43","Face_44","Face_45","Face_46","Face_47", "Face_68"],
     ".OuterLip": ["Face_48","Face_49","Face_50","Face_51","Face_52","Face_53","Face_54","Face_55","Face_56","Face_57","Face_58","Face_59"],
     ".InnerLip": ["Face_60","Face_61","Face_62","Face_63","Face_64","Face_65","Face_66","Face_67"],
-
+    
     ".RightArm": ["RShoulder","RElbow","RWrist"],
     ".LeftArm": ["LShoulder","LElbow","LWrist"],
     ".RightLeg": ["RHip","RKnee","RAnkle"],
     ".LeftLeg": ["LHip","LKnee","LAnkle"],
-
+    
     ".RightHandPalm": [
       "RHand_0"
     ],
-
+    
     ".RightHandFingerThumb": [
       "RHand_1",
       "RHand_2",
       "RHand_3",
       "RHand_4"
     ],
-
+    
     ".RightHandFingerIndex": [
       "RHand_5",
       "RHand_6",
       "RHand_7",
       "RHand_8"
     ],
-
+    
     ".RightHandFingerMiddle": [
       "RHand_9",
       "RHand_10",
       "RHand_11",
       "RHand_12"
     ],
-
+    
     ".RightHandFingerRing": [
       "RHand_13",
       "RHand_14",
       "RHand_15",
       "RHand_16"
     ],
-
+    
     ".RightHandFingerPinky": [
       "RHand_17",
       "RHand_18",
       "RHand_19",
       "RHand_20"
     ],
-
+    
     ".LeftHandPalm": [
       "LHand_0"
     ],
-
+    
     ".LeftHandFingerThumb": [
       "LHand_1",
       "LHand_2",
       "LHand_3",
       "LHand_4"
     ],
-
+    
     ".LeftHandFingerIndex": [
       "LHand_5",
       "LHand_6",
       "LHand_7",
       "LHand_8"
     ],
-
+    
     ".LeftHandFingerMiddle": [
       "LHand_9",
       "LHand_10",
       "LHand_11",
       "LHand_12"
     ],
-
+    
     ".LeftHandFingerRing": [
       "LHand_13",
       "LHand_14",
       "LHand_15",
       "LHand_16"
     ],
-
+    
     ".LeftHandFingerPinky": [
       "LHand_17",
       "LHand_18",
@@ -214,10 +214,149 @@
       "LHand_20"
     ]
   },
+  
+  "controlnet": {
+    "background_color": "#000000",
+    "keypoint_radius": 4,
+    "keypoint_strokewidth": 0,
+    "bone_strokewidth": 4,
+    "keypoint_colors": {
+      "Nose": "#FF0000B3",
+      "Neck": "#FF5500B3",
+      
+      "RShoulder": "#FFAA00B3",
+      "RElbow": "#FFFF00B3",
+      "RWrist": "#AAFF00B3",
+      
+      "LShoulder": "#55FF00B3",
+      "LElbow": "#00FF00B3",
+      "LWrist": "#00FF55B3",
+      
+      "RHip": "#00FFAAB3",
+      "RKnee": "#00FFFFB3",
+      "RAnkle": "#00AAFFB3",
+      
+      "LHip": "#0055FFB3",
+      "LKnee": "#0000FFB3",
+      "LAnkle": "#5500FFB3",
+      
+      "REye": "#AA00FFB3",
+      "LEye": "#FF00FFB3",
+      "REar": "#FF00AAB3",
+      "LEar": "#FF0055B3",
+      
+      "Face_0": "#FFFFFFFF", "Face_1": "#FFFFFFFF", "Face_2": "#FFFFFFFF", "Face_3": "#FFFFFFFF",
+      "Face_4": "#FFFFFFFF", "Face_5": "#FFFFFFFF", "Face_6": "#FFFFFFFF", "Face_7": "#FFFFFFFF",
+      "Face_8": "#FFFFFFFF", "Face_9": "#FFFFFFFF", "Face_10": "#FFFFFFFF", "Face_11": "#FFFFFFFF",
+      "Face_12": "#FFFFFFFF", "Face_13": "#FFFFFFFF", "Face_14": "#FFFFFFFF", "Face_15": "#FFFFFFFF",
+      "Face_16": "#FFFFFFFF", "Face_17": "#FFFFFFFF", "Face_18": "#FFFFFFFF", "Face_19": "#FFFFFFFF",
+      "Face_20": "#FFFFFFFF", "Face_21": "#FFFFFFFF", "Face_22": "#FFFFFFFF", "Face_23": "#FFFFFFFF",
+      "Face_24": "#FFFFFFFF", "Face_25": "#FFFFFFFF", "Face_26": "#FFFFFFFF", "Face_27": "#FFFFFFFF",
+      "Face_28": "#FFFFFFFF", "Face_29": "#FFFFFFFF", "Face_30": "#FFFFFFFF", "Face_31": "#FFFFFFFF",
+      "Face_32": "#FFFFFFFF", "Face_33": "#FFFFFFFF", "Face_34": "#FFFFFFFF", "Face_35": "#FFFFFFFF",
+      "Face_36": "#FFFFFFFF", "Face_37": "#FFFFFFFF", "Face_38": "#FFFFFFFF", "Face_39": "#FFFFFFFF",
+      "Face_40": "#FFFFFFFF", "Face_41": "#FFFFFFFF", "Face_42": "#FFFFFFFF", "Face_43": "#FFFFFFFF",
+      "Face_44": "#FFFFFFFF", "Face_45": "#FFFFFFFF", "Face_46": "#FFFFFFFF", "Face_47": "#FFFFFFFF",
+      "Face_48": "#FFFFFFFF", "Face_49": "#FFFFFFFF", "Face_50": "#FFFFFFFF", "Face_51": "#FFFFFFFF",
+      "Face_52": "#FFFFFFFF", "Face_53": "#FFFFFFFF", "Face_54": "#FFFFFFFF", "Face_55": "#FFFFFFFF",
+      "Face_56": "#FFFFFFFF", "Face_57": "#FFFFFFFF", "Face_58": "#FFFFFFFF", "Face_59": "#FFFFFFFF",
+      "Face_60": "#FFFFFFFF", "Face_61": "#FFFFFFFF", "Face_62": "#FFFFFFFF", "Face_63": "#FFFFFFFF",
+      "Face_64": "#FFFFFFFF", "Face_65": "#FFFFFFFF", "Face_66": "#FFFFFFFF", "Face_67": "#FFFFFFFF",
+      "Face_68": "#FFFFFFFF", "Face_69": "#FFFFFFFF",
+      
+      "LHand_0": "#0000FFFF", "LHand_1": "#0000FFFF", "LHand_2": "#0000FFFF", "LHand_3": "#0000FFFF",
+      "LHand_4": "#0000FFFF", "LHand_5": "#0000FFFF", "LHand_6": "#0000FFFF", "LHand_7": "#0000FFFF",
+      "LHand_8": "#0000FFFF", "LHand_9": "#0000FFFF", "LHand_10": "#0000FFFF", "LHand_11": "#0000FFFF",
+      "LHand_12": "#0000FFFF", "LHand_13": "#0000FFFF", "LHand_14": "#0000FFFF", "LHand_15": "#0000FFFF",
+      "LHand_16": "#0000FFFF", "LHand_17": "#0000FFFF", "LHand_18": "#0000FFFF", "LHand_19": "#0000FFFF",
+      "LHand_20": "#0000FFFF",
+      
+      "RHand_0": "#0000FFFF", "RHand_1": "#0000FFFF", "RHand_2": "#0000FFFF", "RHand_3": "#0000FFFF",
+      "RHand_4": "#0000FFFF", "RHand_5": "#0000FFFF", "RHand_6": "#0000FFFF", "RHand_7": "#0000FFFF",
+      "RHand_8": "#0000FFFF", "RHand_9": "#0000FFFF", "RHand_10": "#0000FFFF", "RHand_11": "#0000FFFF",
+      "RHand_12": "#0000FFFF", "RHand_13": "#0000FFFF", "RHand_14": "#0000FFFF", "RHand_15": "#0000FFFF",
+      "RHand_16": "#0000FFFF", "RHand_17": "#0000FFFF", "RHand_18": "#0000FFFF", "RHand_19": "#0000FFFF",
+      "RHand_20": "#0000FFFF"
+    },
+    "bone_colors": {
+      "NoseToNeck": "#0000FFFF",
+      "NoseToREye": "#5500FFFF",
+      "REyeToREar": "#AA00FFFF",
+      "NoseToLEye": "#FF00FFFF",
+      "LEyeToLEar": "#FF00AAFF",
+      
+      "NeckToRShoulder": "#FF0000FF",
+      "RShoulderToRElbow": "#FFAA00FF",
+      "RElbowToRWrist": "#FFFF00FF",
+      
+      "NeckToLShoulder": "#FF5500FF",
+      "LShoulderToLElbow": "#AAFF00FF",
+      "LElbowToLWrist": "#55FF00FF",
+      
+      "NeckToRHip": "#00FF00FF",
+      "RHipToRKnee": "#00FF55FF",
+      "RKneeToRAnkle": "#00FFAAFF",
+      
+      "NeckToLHip": "#00FFFFFF",
+      "LHipToLKnee": "#00AAFFFF",
+      "LKneeToLAnkle": "#0055FFFF",
+      
+      "LHand_0ToLHand_1": "#FF0000FF", "LHand_1ToLHand_2": "#FF4C00FF", "LHand_2ToLHand_3": "#FF9900FF",
+      "LHand_3ToLHand_4": "#FFE500FF", "LHand_0ToLHand_5": "#CCFF00FF", "LHand_5ToLHand_6": "#80FF00FF",
+      "LHand_6ToLHand_7": "#33FF00FF", "LHand_7ToLHand_8": "#00FF19FF", "LHand_0ToLHand_9": "#00FF66FF",
+      "LHand_9ToLHand_10": "#00FFB2FF", "LHand_10ToLHand_11": "#00FFFFFF", "LHand_11ToLHand_12": "#00B2FFFF",
+      "LHand_0ToLHand_13": "#0066FFFF", "LHand_13ToLHand_14": "#0019FFFF", "LHand_14ToLHand_15": "#3300FFFF",
+      "LHand_15ToLHand_16": "#8000FFFF", "LHand_0ToLHand_17": "#CC00FFFF", "LHand_17ToLHand_18": "#FF00E5FF",
+      "LHand_18ToLHand_19": "#FF0099FF", "LHand_19ToLHand_20": "#FF004CFF",
+      
+      "RHand_0ToRHand_1": "#FF0000FF", "RHand_1ToRHand_2": "#FF4C00FF", "RHand_2ToRHand_3": "#FF9900FF",
+      "RHand_3ToRHand_4": "#FFE500FF", "RHand_0ToRHand_5": "#CCFF00FF", "RHand_5ToRHand_6": "#80FF00FF",
+      "RHand_6ToRHand_7": "#33FF00FF", "RHand_7ToRHand_8": "#00FF19FF", "RHand_0ToRHand_9": "#00FF66FF",
+      "RHand_9ToRHand_10": "#00FFB2FF", "RHand_10ToRHand_11": "#00FFFFFF", "RHand_11ToRHand_12": "#00B2FFFF",
+      "RHand_0ToRHand_13": "#0066FFFF", "RHand_13ToRHand_14": "#0019FFFF", "RHand_14ToRHand_15": "#3300FFFF",
+      "RHand_15ToRHand_16": "#8000FFFF", "RHand_0ToRHand_17": "#CC00FFFF", "RHand_17ToRHand_18": "#FF00E5FF",
+      "RHand_18ToRHand_19": "#FF0099FF", "RHand_19ToRHand_20": "#FF004CFF",
 
+      "Face_0ToFace_1": "#00000000", "Face_1ToFace_2": "#00000000", "Face_2ToFace_3": "#00000000",
+      "Face_3ToFace_4": "#00000000", "Face_4ToFace_5": "#00000000", "Face_5ToFace_6": "#00000000",
+      "Face_6ToFace_7": "#00000000", "Face_7ToFace_8": "#00000000", "Face_8ToFace_9": "#00000000",
+      "Face_9ToFace_10": "#00000000", "Face_10ToFace_11": "#00000000", "Face_11ToFace_12": "#00000000",
+      "Face_12ToFace_13": "#00000000", "Face_13ToFace_14": "#00000000", "Face_14ToFace_15": "#00000000",
+      "Face_15ToFace_16": "#00000000",
+
+      "Face_17ToFace_18": "#00000000", "Face_18ToFace_19": "#00000000", "Face_19ToFace_20": "#00000000",
+      "Face_20ToFace_21": "#00000000",
+
+      "Face_22ToFace_23": "#00000000", "Face_23ToFace_24": "#00000000", "Face_24ToFace_25": "#00000000",
+      "Face_25ToFace_26": "#00000000",
+
+      "Face_27ToFace_28": "#00000000", "Face_28ToFace_29": "#00000000", "Face_29ToFace_30": "#00000000",
+
+      "Face_31ToFace_32": "#00000000", "Face_32ToFace_33": "#00000000", "Face_33ToFace_34": "#00000000",
+      "Face_34ToFace_35": "#00000000",
+
+      "Face_36ToFace_37": "#00000000", "Face_37ToFace_38": "#00000000", "Face_38ToFace_39": "#00000000",
+      "Face_39ToFace_40": "#00000000", "Face_40ToFace_41": "#00000000", "Face_41ToFace_36": "#00000000",
+      "Face_36ToFace_68": "#00000000", "Face_42ToFace_69": "#00000000",
+
+      "Face_42ToFace_43": "#00000000", "Face_43ToFace_44": "#00000000", "Face_44ToFace_45": "#00000000",
+      "Face_45ToFace_46": "#00000000", "Face_46ToFace_47": "#00000000", "Face_47ToFace_42": "#00000000",
+
+      "Face_48ToFace_49": "#00000000", "Face_49ToFace_50": "#00000000", "Face_50ToFace_51": "#00000000",
+      "Face_51ToFace_52": "#00000000", "Face_52ToFace_53": "#00000000", "Face_53ToFace_54": "#00000000",
+      "Face_54ToFace_55": "#00000000", "Face_55ToFace_56": "#00000000", "Face_56ToFace_57": "#00000000",
+      "Face_57ToFace_58": "#00000000", "Face_58ToFace_59": "#00000000", "Face_59ToFace_48": "#00000000",
+
+      "Face_60ToFace_61": "#00000000", "Face_61ToFace_62": "#00000000", "Face_62ToFace_63": "#00000000",
+      "Face_63ToFace_64": "#00000000", "Face_64ToFace_65": "#00000000", "Face_65ToFace_66": "#00000000",
+      "Face_66ToFace_67": "#00000000", "Face_67ToFace_60": "#00000000"
+    }
+  },
+  
   "metadata": {
     "canvas_width": 512,
     "canvas_height": 512,
+    
     "includes": {
       "Pose": 18,
       "Face": 70,

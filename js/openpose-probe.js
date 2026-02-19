@@ -103,6 +103,19 @@ export class SkeletonDataAccess {
         }
     }
 
+    async loadControlnetConfig(formatId) {
+        try {
+            const response = await fetch(`${this.dataPath}${formatId}.json`);
+            if (!response.ok) {
+                throw new Error(`Failed to load ${formatId}.json: ${response.statusText}`);
+            }
+            const data = (await response.json())['controlnet'];
+            return data;
+        } catch (error) {
+            console.error('Error loading ControlNet config data:', error);
+        }
+    }
+
     /**
      * Process raw JSON data into efficient structures
      * @param {Object} data - Raw JSON data

@@ -804,6 +804,12 @@ export class Drawable extends Entity {
         // Just rebuild skeleton at current position
         await this.buildSkeleton(x, y, width, height);
     }
+
+    getNaturalBoundingBox() {
+        const positions = Object.values(this.keypointsDict).map(kp => kp.getPosition()).filter(pos => pos !== null);
+        return dataAccessManager._calculateNaturalBounds(positions);
+    }
+    
 }
 
 /**
