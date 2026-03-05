@@ -100,7 +100,7 @@ export class ToolboxManager {
 
         const lockBtn = document.createElement('button');
         const lockIcon = document.createElement('img');
-        lockIcon.src = 'assets/icons/unlock.svg';
+        lockIcon.src = 'assets/icons/' + (layer.getAttr('locked') ? 'lock.svg' : 'unlock.svg');
         lockIcon.className = 'layer-icon';
         lockIcon.alt = '';
         lockIcon.setAttribute('aria-hidden', 'true');
@@ -205,6 +205,7 @@ export class ToolboxManager {
 
     onDrop(e, dropIndex) {
         e.preventDefault();
+        if (!this.draggedElement) return;
         const dragIndex = parseInt(this.draggedElement.dataset.index);
         if (dragIndex !== dropIndex) {
             this.canvasManager.reorderLayers(dragIndex, dropIndex);

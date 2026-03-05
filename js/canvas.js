@@ -298,9 +298,10 @@ export class CanvasManager {
         this.layers.splice(toIndex, 0, movedLayer);
         this.poseLayers.splice(toIndex, 0, movedPoseLayer);
 
-        movedLayer.setZIndex(toIndex);
-        
-        // Safe approach: just move the transform layer to top after any reorder
+        // Re-apply correct z-order for all content layers
+        this.layers.forEach(layer => {
+            layer.moveToTop();
+        });
         if (this.transformLayer) {
             this.transformLayer.moveToTop();
         }
