@@ -198,8 +198,11 @@ export class ToolbarManager {
                 return;
             }
 
+            // Get page size for BODY18COMFYUI format
+            const pageSize = (format === 'BODY18COMFYUI') ? this.canvasManager.getPageSize() : null;
+
             // Collect all pose data from all layers
-            const allPoseData = await this.collectAllPoseData(format);
+            const allPoseData = await this.collectAllPoseData(format, pageSize);
             
             // Check if we have any pose data to export
             let hasData = false;
@@ -399,14 +402,14 @@ export class ToolbarManager {
     /**
      * Collect all pose data from all layers
      */
-    async collectAllPoseData(format) {
+    async collectAllPoseData(format, pageSize=null) {
         let toJson = null;
         const persons = this.canvasManager.scene.persons || [];
         console.log(`Found ${persons.length} persons in scene`);
-        
+
         // Convert each person to the requested format
         for (const person of persons) {
-            toJson = await dataAccessManager.exportPersonAsOpenPoseJson(person, format, toJson);
+            toJson = await dataAccessManager.exportPersonAsOpenPoseJson(person, format, toJson, pageSize);
         }
 
         return toJson;

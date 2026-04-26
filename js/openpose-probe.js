@@ -350,24 +350,25 @@ export class SkeletonDataAccess {
      * @param {Person} person - Person entity to export
      * @param {string} format - Target format (defaults to person's format)
      * @param {Object | Object[] | null} toJson - Existing JSON to merge with
+     * @param {Object} pageSize - Optional {width, height} page dimensions
      * @returns {Promise<Object>} OpenPose JSON data
      */
-    async exportPersonAsOpenPoseJson(person, format=null, toJson=null) {
+    async exportPersonAsOpenPoseJson(person, format=null, toJson=null, pageSize=null) {
         const targetFormat = format || person.format;
-        
+
         try {
             const skeletonData = await this.loadSkeletonData(targetFormat);
-            
+
             // Validate format compatibility
             if (!this.validatePersonFormatCompatibility(person, skeletonData)) {
                 throw new Error(`Cannot convert to ${targetFormat}: incompatible keypoint structure`);
             }
-            
+
             switch (targetFormat) {
                 case 'BODY18':
                     return this.createBODY18(person, skeletonData, toJson);
                 case 'BODY18COMFYUI':
-                    return this.createBODY18COMFYUI(person, skeletonData, toJson);
+                    return this.createBODY18COMFYUI(person, skeletonData, toJson, pageSize);
                 case 'BODY25':
                     return this.createBODY25(person, skeletonData, toJson);
 
@@ -454,29 +455,35 @@ export class SkeletonDataAccess {
      * @param {Person} person - Person entity
      * @param {Object} skeletonData - Skeleton data
      * @param {Object[]|null} toJson - Existing ComfyUI Enhanced JSON to merge with
+     * @param {Object|null} pageSize - Optional {width, height} page dimensions
      * @returns {Object[]} ComfyUI Enhanced JSON
      */
-    createBODY18COMFYUI(person, skeletonData, toJson=null) {
+    createBODY18COMFYUI(person, skeletonData, toJson=null, pageSize=null) {
         if (toJson === null) {
             toJson = [{people: [], canvas_width: 0, canvas_height: 0}];
         }
         const data = toJson[toJson.length - 1];
         this.createBODY18(person, skeletonData, data);
-        
-        // Add canvas dimensions (assuming based on current pose extents)
-        const positions = skeletonData.names.map(name => person.keypointsDict[name].getPosition()).filter(Boolean);
-        if (positions.length > 0) {
-            const xs = positions.map(p => p.x);
-            const ys = positions.map(p => p.y);
-            const minX = Math.min(...xs);
-            const maxX = Math.max(...xs);
-            const minY = Math.min(...ys);
-            const maxY = Math.max(...ys);
-            
-            data.canvas_width = Math.max(Math.round(maxX - minX + 100), data.canvas_width);
-            data.canvas_height = Math.max(Math.round(maxY - minY + 100), data.canvas_height);
-        };
-        
+
+        // Use provided page size, or calculate from pose extents as fallback
+        if (pageSize && pageSize.width && pageSize.height) {
+            data.canvas_width = pageSize.width;
+            data.canvas_height = pageSize.height;
+        } else {
+            const positions = skeletonData.names.map(name => person.keypointsDict[name].getPosition()).filter(Boolean);
+            if (positions.length > 0) {
+                const xs = positions.map(p => p.x);
+                const ys = positions.map(p => p.y);
+                const minX = Math.min(...xs);
+                const maxX = Math.max(...xs);
+                const minY = Math.min(...ys);
+                const maxY = Math.max(...ys);
+
+                data.canvas_width = Math.max(Math.round(maxX - minX + 100), data.canvas_width);
+                data.canvas_height = Math.max(Math.round(maxY - minY + 100), data.canvas_height);
+            }
+        }
+
         return toJson;
     }
 
